@@ -1,0 +1,12 @@
+{
+  "name": "勇者",
+  "job": "見習い戦士",
+  "level": 1,
+  "hp": 30,
+  "maxHp": 30,
+  "mp": 10,
+  "maxMp": 10,
+  "exp": 0,
+  "expToNext": 20,
+  "gold": 0
+}

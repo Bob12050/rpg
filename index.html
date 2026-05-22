@@ -1,8 +1,72 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head><meta charset="utf-8"><title>テスト</title></head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1a1626">
+  <title>RPG（仮）</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-  <h1>Hello! 土台ができました 🎉</h1>
-  <p>このページがスマホで見えたら成功です。</p>
+  <div class="app">
+
+    <header class="topbar">
+      <span class="brand">⚔ RPG <span class="brand-sub">（作り直し中・M0）</span></span>
+    </header>
+
+    <!-- プレイヤーカード：状態を映す場所。中身は render.js が書き込む -->
+    <section class="card" aria-label="プレイヤー情報">
+      <div class="pc-head">
+        <div class="pc-name">
+          <span id="p-name">―</span>
+          <span class="pc-job" id="p-job">―</span>
+        </div>
+        <div class="pc-level">Lv <span id="p-level">―</span></div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-row"><span class="stat-label">HP</span><span class="stat-val" id="hp-text">―</span></div>
+        <div class="track"><div class="fill hp" id="hp-bar"></div></div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-row"><span class="stat-label">MP</span><span class="stat-val" id="mp-text">―</span></div>
+        <div class="track"><div class="fill mp" id="mp-bar"></div></div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-row"><span class="stat-label">EXP</span><span class="stat-val" id="exp-text">―</span></div>
+        <div class="track"><div class="fill exp" id="exp-bar"></div></div>
+      </div>
+
+      <div class="gold-row">所持金 <span id="p-gold">―</span> G</div>
+    </section>
+
+    <!-- 動作確認用ボタン：状態を変える → 自動で上のカードが更新される -->
+    <section class="panel">
+      <p class="panel-title">動作テスト</p>
+      <div class="btn-grid">
+        <button id="btn-damage" class="btn">ダメージ −10</button>
+        <button id="btn-heal" class="btn">回復 +10</button>
+        <button id="btn-exp" class="btn wide">経験値＆ゴールドを得る</button>
+      </div>
+      <div class="btn-grid">
+        <button id="btn-save" class="btn ghost">セーブ</button>
+        <button id="btn-load" class="btn ghost">ロード</button>
+        <button id="btn-reset" class="btn ghost danger">リセット</button>
+      </div>
+    </section>
+
+    <p class="note">
+      ボタンを押すと状態が変わり、上の表示が自動で追従します。<br>
+      これが「状態は1か所・描画は1か所」が動いている証拠です。
+    </p>
+
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
