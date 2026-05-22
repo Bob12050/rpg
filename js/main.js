@@ -7,8 +7,9 @@
 // この「状態を変えれば画面が追従する」一方通行が、設計原則1・2が動いている証拠。
 // =====================================================================
 
-import { initGame, update, subscribe, save, load, resetGame } from "./state.js";
+import { getState, initGame, update, subscribe, save, load, resetGame } from "./state.js";
 import { render, flash } from "./render.js";
+import { attackEnemy, loadEnemies, startFirstBattle } from "./battle.js";
 
 // 1) 状態が変わったら、必ず render を呼ぶ（購読）
 subscribe(render);
@@ -57,13 +58,29 @@ function wireButtons() {
 
   // ロード
   on("btn-load", () => {
-    flash(load() ? "ロードしました" : "セーブデータがありません");
+    if (load()) {
+      if (!getState().battle) startFirstBattle();
+      flash("ロードしました");
+    } else {
+      flash("セーブデータがありません");
+    }
   });
 
   // リセット
   on("btn-reset", async () => {
     await resetGame();
+    startFirstBattle();
     flash("最初の状態に戻しました");
+  });
+
+  on("btn-attack", () => {
+    attackEnemy();
+    flash("攻撃した");
+  });
+
+  on("btn-next-enemy", () => {
+    startFirstBattle();
+    flash("敵が現れた");
   });
 }
 
@@ -76,7 +93,9 @@ function on(id, handler) {
 async function boot() {
   wireButtons();
   try {
+    await loadEnemies();
     await initGame();   // データ読み込み → 状態初期化 → 最初の描画
+    if (!getState().battle) startFirstBattle();
   } catch (e) {
     console.error(e);
     const el = document.getElementById("toast");

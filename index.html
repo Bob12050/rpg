@@ -12,7 +12,7 @@
   <div class="app">
 
     <header class="topbar">
-      <span class="brand">⚔ RPG <span class="brand-sub">（作り直し中・M0）</span></span>
+      <span class="brand">⚔ RPG <span class="brand-sub">（作り直し中・M1）</span></span>
     </header>
 
     <!-- プレイヤーカード：状態を映す場所。中身は render.js が書き込む -->
@@ -41,6 +41,27 @@
       </div>
 
       <div class="gold-row">所持金 <span id="p-gold">―</span> G</div>
+    </section>
+
+    <section class="card battle-card" aria-label="戦闘">
+      <div class="pc-head">
+        <div class="pc-name">
+          <span id="enemy-name">―</span>
+          <span class="pc-job">敵 Lv <span id="enemy-level">―</span></span>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-row"><span class="stat-label">ENEMY HP</span><span class="stat-val" id="enemy-hp-text">―</span></div>
+        <div class="track"><div class="fill enemy" id="enemy-hp-bar"></div></div>
+      </div>
+
+      <div class="battle-log" id="battle-log" aria-live="polite"></div>
+
+      <div class="btn-grid battle-actions">
+        <button id="btn-attack" class="btn wide">攻撃</button>
+        <button id="btn-next-enemy" class="btn ghost">次の敵</button>
+      </div>
     </section>
 
     <!-- 動作確認用ボタン：状態を変える → 自動で上のカードが更新される -->

@@ -4,7 +4,7 @@
 // ※ファイルを更新したら、下の CACHE 名のバージョン(v1→v2…)を上げると確実に反映される。
 // =====================================================================
 
-const CACHE = "rpg-cache-v1";
+const CACHE = "rpg-cache-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -12,7 +12,9 @@ const ASSETS = [
   "./js/main.js",
   "./js/state.js",
   "./js/render.js",
+  "./js/battle.js",
   "./data/player.json",
+  "./data/enemies.json",
   "./manifest.json"
 ];
 

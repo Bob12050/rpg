@@ -17,6 +17,7 @@
   --hp: #e0556b;
   --mp: #5aa9e6;
   --exp: #6fcf97;
+  --enemy: #f08a5d;
   --danger: #d86b6b;
   --radius: 14px;
   --shadow: 0 6px 20px rgba(0,0,0,.35);
@@ -109,6 +110,7 @@ body {
 .fill.hp { background: linear-gradient(90deg, #b73a52, var(--hp)); }
 .fill.mp { background: linear-gradient(90deg, #3a78b7, var(--mp)); }
 .fill.exp { background: linear-gradient(90deg, #3f9d6a, var(--exp)); }
+.fill.enemy { background: linear-gradient(90deg, #bd5f43, var(--enemy)); }
 
 .gold-row {
   margin-top: 14px;
@@ -117,6 +119,21 @@ body {
   color: var(--ink-dim);
 }
 .gold-row span { color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* --- 戦闘 --- */
+.battle-card { margin-top: 16px; }
+.battle-log {
+  min-height: 112px;
+  margin-top: 14px;
+  padding: 12px;
+  background: rgba(15, 12, 24, .45);
+  border: 1px solid rgba(58, 50, 82, .75);
+  border-radius: 10px;
+  color: var(--ink-dim);
+  font-size: .82rem;
+}
+.battle-log p + p { margin-top: 4px; }
+.battle-actions { margin-top: 12px; margin-bottom: 0; }
 
 /* --- 操作パネル --- */
 .panel { margin-top: 20px; }

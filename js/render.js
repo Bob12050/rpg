@@ -23,6 +23,8 @@ export function render(state) {
   setBar("exp-bar", p.exp, p.expToNext);
 
   setText("p-gold", p.gold);
+
+  renderBattle(state.battle);
 }
 
 // --- 小さな補助関数 ---
@@ -36,6 +38,32 @@ function setBar(id, value, max) {
   if (!el) return;
   const ratio = max > 0 ? Math.max(0, Math.min(1, value / max)) : 0;
   el.style.width = (ratio * 100) + "%";
+}
+
+function renderBattle(battle) {
+  const enemy = battle?.enemy;
+  const hasEnemy = Boolean(enemy);
+
+  setText("enemy-name", hasEnemy ? enemy.name : "―");
+  setText("enemy-level", hasEnemy ? enemy.level : "―");
+  setText("enemy-hp-text", hasEnemy ? `${enemy.hp} / ${enemy.maxHp}` : "―");
+  setBar("enemy-hp-bar", hasEnemy ? enemy.hp : 0, hasEnemy ? enemy.maxHp : 1);
+
+  const logEl = document.getElementById("battle-log");
+  if (logEl) {
+    const lines = battle?.log?.length ? battle.log : ["まだ敵はいない"];
+    logEl.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("");
+  }
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (ch) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  })[ch]);
 }
 
 // 画面下にメッセージを一瞬出す（操作の手応え用）
