@@ -1,15 +1,24 @@
 {
-  "name": "RPG（作り直し中）",
-  "short_name": "RPG",
-  "description": "ソロ・ハクスラRPG",
+  "name": "\u30BD\u30ED\u30FB\u30CF\u30AF\u30B9\u30E9RPG",
+  "short_name": "\u30BD\u30EDRPG",
+  "description": "\u72E9\u308A\u3001\u53CE\u96C6\u3001\u80B2\u6210\u3092\u5C0F\u3055\u304F\u56DE\u3059\u30BD\u30ED\u5C02\u7528\u30CF\u30AF\u30B9\u30E9RPG\u3067\u3059\u3002",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#15121f",
-  "theme_color": "#1a1626",
+  "background_color": "#151419",
+  "theme_color": "#18151f",
   "icons": [
-    { "src": "assets/images/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "assets/images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "assets/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }

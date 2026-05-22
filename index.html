@@ -3,90 +3,99 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#1a1626">
-  <title>RPG（仮）</title>
+  <meta name="theme-color" content="#18151f">
+  <title>&#12477;&#12525;&#12539;&#12495;&#12463;&#12473;&#12521;RPG</title>
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="app">
-
     <header class="topbar">
-      <span class="brand">⚔ RPG <span class="brand-sub">（作り直し中・M1）</span></span>
+      <div>
+        <p class="eyebrow">M0 / M1 prototype</p>
+        <h1 class="brand">&#12477;&#12525;&#12539;&#12495;&#12463;&#12473;&#12521;RPG</h1>
+      </div>
+      <span class="save-indicator" id="save-indicator">&#26410;&#20445;&#23384;</span>
     </header>
 
-    <!-- プレイヤーカード：状態を映す場所。中身は render.js が書き込む -->
-    <section class="card" aria-label="プレイヤー情報">
-      <div class="pc-head">
-        <div class="pc-name">
-          <span id="p-name">―</span>
-          <span class="pc-job" id="p-job">―</span>
+    <main class="layout">
+      <section class="card" aria-label="player information">
+        <div class="card-head">
+          <div>
+            <p class="label">&#20882;&#38522;&#32773;</p>
+            <h2 class="name-row">
+              <span id="p-name">-</span>
+              <span class="job-badge" id="p-job">-</span>
+            </h2>
+          </div>
+          <div class="level-box">
+            <span>Lv</span>
+            <strong id="p-level">-</strong>
+          </div>
         </div>
-        <div class="pc-level">Lv <span id="p-level">―</span></div>
-      </div>
 
-      <div class="stat">
-        <div class="stat-row"><span class="stat-label">HP</span><span class="stat-val" id="hp-text">―</span></div>
-        <div class="track"><div class="fill hp" id="hp-bar"></div></div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-row"><span class="stat-label">MP</span><span class="stat-val" id="mp-text">―</span></div>
-        <div class="track"><div class="fill mp" id="mp-bar"></div></div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-row"><span class="stat-label">EXP</span><span class="stat-val" id="exp-text">―</span></div>
-        <div class="track"><div class="fill exp" id="exp-bar"></div></div>
-      </div>
-
-      <div class="gold-row">所持金 <span id="p-gold">―</span> G</div>
-    </section>
-
-    <section class="card battle-card" aria-label="戦闘">
-      <div class="pc-head">
-        <div class="pc-name">
-          <span id="enemy-name">―</span>
-          <span class="pc-job">敵 Lv <span id="enemy-level">―</span></span>
+        <div class="stat">
+          <div class="stat-row"><span>HP</span><strong id="hp-text">-</strong></div>
+          <div class="track"><div class="fill hp" id="hp-bar"></div></div>
         </div>
-      </div>
 
-      <div class="stat">
-        <div class="stat-row"><span class="stat-label">ENEMY HP</span><span class="stat-val" id="enemy-hp-text">―</span></div>
-        <div class="track"><div class="fill enemy" id="enemy-hp-bar"></div></div>
-      </div>
+        <div class="stat">
+          <div class="stat-row"><span>MP</span><strong id="mp-text">-</strong></div>
+          <div class="track"><div class="fill mp" id="mp-bar"></div></div>
+        </div>
 
-      <div class="battle-log" id="battle-log" aria-live="polite"></div>
+        <div class="stat">
+          <div class="stat-row"><span>EXP</span><strong id="exp-text">-</strong></div>
+          <div class="track"><div class="fill exp" id="exp-bar"></div></div>
+        </div>
 
-      <div class="btn-grid battle-actions">
-        <button id="btn-attack" class="btn wide">攻撃</button>
-        <button id="btn-next-enemy" class="btn ghost">次の敵</button>
-      </div>
-    </section>
+        <div class="resource-row">
+          <span>&#25152;&#25345;&#37329;</span>
+          <strong><span id="p-gold">-</span> G</strong>
+        </div>
+      </section>
 
-    <!-- 動作確認用ボタン：状態を変える → 自動で上のカードが更新される -->
-    <section class="panel">
-      <p class="panel-title">動作テスト</p>
-      <div class="btn-grid">
-        <button id="btn-damage" class="btn">ダメージ −10</button>
-        <button id="btn-heal" class="btn">回復 +10</button>
-        <button id="btn-exp" class="btn wide">経験値＆ゴールドを得る</button>
-      </div>
-      <div class="btn-grid">
-        <button id="btn-save" class="btn ghost">セーブ</button>
-        <button id="btn-load" class="btn ghost">ロード</button>
-        <button id="btn-reset" class="btn ghost danger">リセット</button>
-      </div>
-    </section>
+      <section class="card" aria-label="battle">
+        <div class="card-head">
+          <div>
+            <p class="label">&#29694;&#22312;&#12398;&#25973;</p>
+            <h2 class="name-row">
+              <span id="enemy-name">-</span>
+              <span class="enemy-level">Lv <span id="enemy-level">-</span></span>
+            </h2>
+          </div>
+        </div>
 
-    <p class="note">
-      ボタンを押すと状態が変わり、上の表示が自動で追従します。<br>
-      これが「状態は1か所・描画は1か所」が動いている証拠です。
-    </p>
+        <div class="stat">
+          <div class="stat-row"><span>ENEMY HP</span><strong id="enemy-hp-text">-</strong></div>
+          <div class="track"><div class="fill enemy" id="enemy-hp-bar"></div></div>
+        </div>
 
+        <div class="battle-log" id="battle-log" aria-live="polite"></div>
+
+        <div class="button-row">
+          <button id="btn-attack" class="button primary">&#25915;&#25731;</button>
+          <button id="btn-next-enemy" class="button">&#27425;&#12398;&#25973;</button>
+        </div>
+      </section>
+
+      <section class="tool-panel" aria-label="debug controls">
+        <p class="panel-title">&#21205;&#20316;&#12486;&#12473;&#12488;</p>
+        <div class="button-row">
+          <button id="btn-damage" class="button">HP -10</button>
+          <button id="btn-heal" class="button">HP +10</button>
+          <button id="btn-exp" class="button">EXP +5</button>
+        </div>
+        <div class="button-row">
+          <button id="btn-save" class="button subtle">&#12475;&#12540;&#12502;</button>
+          <button id="btn-load" class="button subtle">&#12525;&#12540;&#12489;</button>
+          <button id="btn-reset" class="button danger">&#12522;&#12475;&#12483;&#12488;</button>
+        </div>
+      </section>
+    </main>
   </div>
 
-  <div id="toast" class="toast"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script type="module" src="js/main.js"></script>
 </body>

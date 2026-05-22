@@ -1,80 +1,96 @@
 import { update } from "./state.js";
 
 let enemyDefinitions = [];
+let nextEnemyIndex = 0;
 
 export async function loadEnemies() {
-  const res = await fetch("data/enemies.json");
-  if (!res.ok) throw new Error("enemies.json の読み込みに失敗しました");
-  enemyDefinitions = await res.json();
+  const response = await fetch("data/enemies.json");
+  if (!response.ok) {
+    throw new Error("Failed to load data/enemies.json");
+  }
+  enemyDefinitions = await response.json();
 }
 
-export function startFirstBattle() {
-  const enemy = enemyDefinitions[0];
-  if (!enemy) return;
+export function startNextBattle() {
+  if (!enemyDefinitions.length) return;
 
-  update((s) => {
-    s.battle = {
+  const definition = enemyDefinitions[nextEnemyIndex % enemyDefinitions.length];
+  nextEnemyIndex += 1;
+
+  update((state) => {
+    state.battle = {
       stageId: "first_forest",
-      enemy: createEnemy(enemy),
-      log: [`${enemy.name}が現れた`],
+      enemy: createEnemy(definition),
+      log: [`${definition.name}\u304C\u73FE\u308C\u305F\u3002`],
     };
   });
 }
 
 export function attackEnemy() {
-  update((s) => {
-    const p = s.player;
-    const battle = s.battle;
+  update((state) => {
+    const player = state.player;
+    const battle = state.battle;
     const enemy = battle?.enemy;
-    if (!p || !battle || !enemy) return;
+    if (!player || !battle || !enemy) return;
 
-    if (p.hp <= 0) {
-      pushLog(battle, "HPが0です。回復してから戦おう");
+    if (player.hp <= 0) {
+      pushLog(battle, "HP\u304C0\u3067\u3059\u3002\u56DE\u5FA9\u3057\u3066\u304B\u3089\u6226\u304A\u3046\u3002");
       return;
     }
 
     if (enemy.hp <= 0) {
-      pushLog(battle, "敵はもう倒れている");
+      pushLog(battle, "\u6575\u306F\u3082\u3046\u5012\u308C\u3066\u3044\u308B\u3002\u6B21\u306E\u6575\u3092\u63A2\u305D\u3046\u3002");
       return;
     }
 
-    const playerDamage = Math.max(1, 7 + p.level * 2);
+    const playerDamage = Math.max(1, 7 + player.level * 2);
     enemy.hp = Math.max(0, enemy.hp - playerDamage);
-    pushLog(battle, `${enemy.name}に${playerDamage}ダメージ`);
+    pushLog(battle, `${enemy.name}\u306B${playerDamage}\u30C0\u30E1\u30FC\u30B8\u3002`);
 
     if (enemy.hp <= 0) {
-      grantRewards(p, enemy, battle);
+      grantRewards(player, enemy, battle);
       return;
     }
 
     const enemyDamage = Math.max(1, enemy.attack);
-    p.hp = Math.max(0, p.hp - enemyDamage);
-    pushLog(battle, `${enemy.name}から${enemyDamage}ダメージ`);
+    player.hp = Math.max(0, player.hp - enemyDamage);
+    pushLog(battle, `${enemy.name}\u304B\u3089${enemyDamage}\u30C0\u30E1\u30FC\u30B8\u3002`);
 
-    if (p.hp <= 0) {
-      pushLog(battle, "倒れてしまった。回復して立て直そう");
+    if (player.hp <= 0) {
+      pushLog(battle, "\u5012\u308C\u3066\u3057\u307E\u3063\u305F\u3002\u56DE\u5FA9\u3057\u3066\u7ACB\u3066\u76F4\u305D\u3046\u3002");
     }
   });
 }
 
-function createEnemy(def) {
+export function gainTestExp() {
+  update((state) => {
+    grantExp(state.player, 5, state.battle);
+    state.player.gold += 3;
+  });
+}
+
+function createEnemy(definition) {
   return {
-    id: def.id,
-    name: def.name,
-    level: def.level,
-    hp: def.maxHp,
-    maxHp: def.maxHp,
-    attack: def.attack,
-    exp: def.exp,
-    gold: def.gold,
+    id: definition.id,
+    name: definition.name,
+    level: definition.level,
+    hp: definition.maxHp,
+    maxHp: definition.maxHp,
+    attack: definition.attack,
+    exp: definition.exp,
+    gold: definition.gold,
   };
 }
 
 function grantRewards(player, enemy, battle) {
-  player.exp += enemy.exp;
+  grantExp(player, enemy.exp, battle);
   player.gold += enemy.gold;
-  pushLog(battle, `${enemy.name}を倒した`);
-  pushLog(battle, `EXP ${enemy.exp} / ${enemy.gold}G を得た`);
+  pushLog(battle, `${enemy.name}\u3092\u5012\u3057\u305F\u3002`);
+  pushLog(battle, `EXP ${enemy.exp} / ${enemy.gold}G \u3092\u5F97\u305F\u3002`);
+}
+
+function grantExp(player, amount, battle) {
+  player.exp += amount;
 
   while (player.exp >= player.expToNext) {
     player.exp -= player.expToNext;
@@ -84,11 +100,12 @@ function grantRewards(player, enemy, battle) {
     player.hp = player.maxHp;
     player.mp = player.maxMp;
     player.expToNext = Math.floor(player.expToNext * 1.3);
-    pushLog(battle, `Lv ${player.level} に上がった`);
+    pushLog(battle, `Lv ${player.level} \u306B\u4E0A\u304C\u3063\u305F\u3002`);
   }
 }
 
 function pushLog(battle, message) {
+  if (!battle) return;
   battle.log.push(message);
-  battle.log = battle.log.slice(-5);
+  battle.log = battle.log.slice(-6);
 }

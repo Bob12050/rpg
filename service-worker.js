@@ -1,13 +1,8 @@
-// =====================================================================
-// service-worker.js ―― PWAのオフライン対応
-// 主要ファイルをキャッシュし、次回以降オフラインでも起動できるようにする。
-// ※ファイルを更新したら、下の CACHE 名のバージョン(v1→v2…)を上げると確実に反映される。
-// =====================================================================
-
-const CACHE = "rpg-cache-v2";
+const CACHE_NAME = "solo-hack-rpg-v1";
 const ASSETS = [
   "./",
   "./index.html",
+  "./manifest.json",
   "./css/style.css",
   "./js/main.js",
   "./js/state.js",
@@ -15,29 +10,28 @@ const ASSETS = [
   "./js/battle.js",
   "./data/player.json",
   "./data/enemies.json",
-  "./manifest.json"
+  "./assets/images/icon-192.png",
+  "./assets/images/icon-512.png"
 ];
 
-// インストール時：主要ファイルを先読みキャッシュ
-self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)));
+self.addEventListener("install", (event) => {
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));
   self.skipWaiting();
 });
 
-// 有効化時：古いキャッシュを掃除
-self.addEventListener("activate", (e) => {
-  e.waitUntil(
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
+      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
     )
   );
   self.clients.claim();
 });
 
-// 取得時：キャッシュ優先、無ければネット
-self.addEventListener("fetch", (e) => {
-  if (e.request.method !== "GET") return;
-  e.respondWith(
-    caches.match(e.request).then((hit) => hit || fetch(e.request))
+self.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") return;
+
+  event.respondWith(
+    caches.match(event.request).then((cached) => cached || fetch(event.request))
   );
 });
