@@ -122,6 +122,22 @@ button {
   font-weight: 700;
 }
 
+.enemy-art-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0 12px;
+}
+
+.enemy-art-wrap[hidden] {
+  display: none;
+}
+
+.enemy-art {
+  width: min(180px, 70vw);
+  max-height: 180px;
+  object-fit: contain;
+}
+
 .level-box {
   min-width: 60px;
   text-align: right;

@@ -6,7 +6,8 @@
     "maxHp": 18,
     "attack": 4,
     "exp": 6,
-    "gold": 4
+    "gold": 4,
+    "image": "assets/images/enemies/forest_slime.png"
   },
   {
     "id": "twig_goblin",

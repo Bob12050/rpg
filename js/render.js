@@ -55,6 +55,7 @@ function renderBattle(battle, player) {
   setText("enemy-level", enemy ? enemy.level : "-");
   setText("enemy-hp-text", enemy ? `${enemy.hp} / ${enemy.maxHp}` : "-");
   setBar("enemy-hp-bar", enemy ? enemy.hp : 0, enemy ? enemy.maxHp : 1);
+  renderEnemyArt(enemy);
 
   const logElement = document.getElementById("battle-log");
   if (!logElement) return;
@@ -63,6 +64,33 @@ function renderBattle(battle, player) {
   logElement.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("");
 
   renderSkillActions(player);
+}
+
+function renderEnemyArt(enemy) {
+  const wrap = document.getElementById("enemy-art-wrap");
+  const image = document.getElementById("enemy-art");
+  if (!wrap || !image) return;
+
+  const imagePath = enemy?.image;
+  if (!imagePath) {
+    wrap.hidden = true;
+    image.removeAttribute("src");
+    image.alt = "";
+    image.onerror = null;
+    return;
+  }
+
+  image.onerror = () => {
+    wrap.hidden = true;
+    image.removeAttribute("src");
+  };
+
+  image.alt = enemy?.name ? `${enemy.name}の画像` : "敵の画像";
+  wrap.hidden = false;
+
+  if (image.getAttribute("src") !== imagePath) {
+    image.src = imagePath;
+  }
 }
 
 function syncNextEnemyButton(state) {

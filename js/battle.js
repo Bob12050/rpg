@@ -165,6 +165,7 @@ function createEnemy(definition) {
     attack: definition.attack,
     exp: definition.exp,
     gold: definition.gold,
+    image: definition.image ?? null,
     isBoss,
     nextPhaseId: definition.nextPhaseId ?? null,
     bossPhase: definition.bossPhase ?? (isBoss ? 1 : null),
