@@ -12,5 +12,47 @@
     "slot": "armor",
     "atk": 0,
     "def": 2
+  },
+  "wooden_sword": {
+    "id": "wooden_sword",
+    "name": "\u6728\u306E\u5263",
+    "slot": "weapon",
+    "atk": 4,
+    "def": 0
+  },
+  "leather_vest": {
+    "id": "leather_vest",
+    "name": "\u9769\u306E\u30D9\u30B9\u30C8",
+    "slot": "armor",
+    "atk": 0,
+    "def": 3
+  },
+  "iron_sword": {
+    "id": "iron_sword",
+    "name": "\u9244\u306E\u5263",
+    "slot": "weapon",
+    "atk": 6,
+    "def": 0
+  },
+  "crystal_dagger": {
+    "id": "crystal_dagger",
+    "name": "\u6C34\u6676\u306E\u77ED\u5263",
+    "slot": "weapon",
+    "atk": 7,
+    "def": 0
+  },
+  "stone_armor": {
+    "id": "stone_armor",
+    "name": "\u77F3\u306E\u93A7",
+    "slot": "armor",
+    "atk": 0,
+    "def": 5
+  },
+  "crystal_robe": {
+    "id": "crystal_robe",
+    "name": "\u6C34\u6676\u306E\u30ED\u30FC\u30D6",
+    "slot": "armor",
+    "atk": 0,
+    "def": 4
   }
 }
