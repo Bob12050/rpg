@@ -1,4 +1,4 @@
-const CACHE_NAME = "solo-hack-rpg-v15";
+const CACHE_NAME = "solo-hack-rpg-v16";
 const ASSETS = [
   "./",
   "./index.html",
@@ -23,7 +23,8 @@ const ASSETS = [
   "./data/skills.json",
   "./data/stages.json",
   "./assets/images/icon-192.png",
-  "./assets/images/icon-512.png"
+  "./assets/images/icon-512.png",
+  "./assets/images/enemies/forest_slime.png"
 ];
 
 self.addEventListener("install", (event) => {
