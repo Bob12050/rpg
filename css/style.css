@@ -126,9 +126,6 @@ button {
   display: flex;
   justify-content: center;
   margin: 8px 0 12px;
-  background: none;
-  background-image: none;
-  border: 0;
 }
 
 .enemy-art-wrap[hidden] {
@@ -136,13 +133,9 @@ button {
 }
 
 .enemy-art {
-  display: block;
   width: min(180px, 70vw);
   max-height: 180px;
   object-fit: contain;
-  background: none;
-  background-image: none;
-  border: 0;
 }
 
 .level-box {
