@@ -44,5 +44,59 @@
       "minQuantity": 1,
       "maxQuantity": 2
     }
+  ],
+  "cave_slime": [
+    {
+      "itemId": "jiggly_jelly",
+      "name": "\u3077\u308B\u3077\u308B\u30BC\u30EA\u30FC",
+      "type": "material",
+      "chance": 0.9,
+      "minQuantity": 1,
+      "maxQuantity": 2
+    },
+    {
+      "itemId": "cloth_armor",
+      "name": "\u5E03\u306E\u670D",
+      "type": "equipment",
+      "chance": 0.2,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    }
+  ],
+  "crystal_bat": [
+    {
+      "itemId": "mossy_wing",
+      "name": "\u82D4\u3080\u3057\u305F\u7FBD",
+      "type": "material",
+      "chance": 0.8,
+      "minQuantity": 1,
+      "maxQuantity": 2
+    },
+    {
+      "itemId": "rusty_dagger",
+      "name": "\u7C97\u672B\u306A\u77ED\u5263",
+      "type": "equipment",
+      "chance": 0.2,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    }
+  ],
+  "stone_goblin": [
+    {
+      "itemId": "small_branch",
+      "name": "\u5C0F\u3055\u306A\u679D",
+      "type": "material",
+      "chance": 0.85,
+      "minQuantity": 1,
+      "maxQuantity": 2
+    },
+    {
+      "itemId": "cloth_armor",
+      "name": "\u5E03\u306E\u670D",
+      "type": "equipment",
+      "chance": 0.25,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    }
   ]
 }
