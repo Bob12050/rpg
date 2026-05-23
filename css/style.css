@@ -196,6 +196,45 @@ button {
   margin-top: 5px;
 }
 
+.inventory-card {
+  min-height: 180px;
+}
+
+.inventory-list {
+  display: grid;
+  gap: 8px;
+}
+
+.inventory-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.inventory-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  padding: 9px 10px;
+  color: var(--text);
+  background: rgba(12, 11, 14, .35);
+  border: 1px solid rgba(67, 59, 72, .75);
+  border-radius: 8px;
+}
+
+.inventory-item span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.inventory-item strong {
+  flex: 0 0 auto;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
 .button-row {
   display: flex;
   flex-wrap: wrap;

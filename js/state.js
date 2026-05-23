@@ -79,8 +79,20 @@ function loadFromStorage() {
 
 function normalizeState(state) {
   return {
-    player: state.player ?? null,
+    player: normalizePlayer(state.player),
     battle: state.battle ?? null,
+  };
+}
+
+function normalizePlayer(player) {
+  if (!player) return null;
+
+  return {
+    ...player,
+    inventory: {
+      materials: player.inventory?.materials ?? {},
+      equipment: player.inventory?.equipment ?? [],
+    },
   };
 }
 

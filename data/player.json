@@ -8,5 +8,9 @@
   "maxMp": 10,
   "exp": 0,
   "expToNext": 20,
-  "gold": 0
+  "gold": 0,
+  "inventory": {
+    "materials": {},
+    "equipment": []
+  }
 }

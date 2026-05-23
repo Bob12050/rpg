@@ -1,6 +1,7 @@
 import { getState, initGame, load, resetGame, save, subscribe, update } from "./state.js";
 import { flash, render, setSaveIndicator } from "./render.js";
 import { attackEnemy, gainTestExp, loadEnemies, startNextBattle } from "./battle.js";
+import { loadLootTables } from "./loot.js";
 
 subscribe((state) => {
   render(state);
@@ -68,6 +69,7 @@ function wireButtons() {
 async function boot() {
   try {
     await loadEnemies();
+    await loadLootTables();
     await initGame();
     if (!getState().battle) startNextBattle();
   } catch (error) {

@@ -1,4 +1,5 @@
 import { update } from "./state.js";
+import { addLootToInventory, rollLootForEnemy } from "./loot.js";
 
 let enemyDefinitions = [];
 let nextEnemyIndex = 0;
@@ -87,6 +88,18 @@ function grantRewards(player, enemy, battle) {
   player.gold += enemy.gold;
   pushLog(battle, `${enemy.name}\u3092\u5012\u3057\u305F\u3002`);
   pushLog(battle, `EXP ${enemy.exp} / ${enemy.gold}G \u3092\u5F97\u305F\u3002`);
+
+  const drops = rollLootForEnemy(enemy.id);
+  addLootToInventory(player, drops);
+
+  if (!drops.length) {
+    pushLog(battle, "\u30C9\u30ED\u30C3\u30D7\u306F\u306A\u304B\u3063\u305F\u3002");
+    return;
+  }
+
+  for (const drop of drops) {
+    pushLog(battle, `${drop.name} x${drop.quantity} \u3092\u62FE\u3063\u305F\u3002`);
+  }
 }
 
 function grantExp(player, amount, battle) {

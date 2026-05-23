@@ -15,6 +15,7 @@ export function render(state) {
   setBar("exp-bar", player.exp, player.expToNext);
 
   renderBattle(state.battle);
+  renderInventory(player.inventory);
 }
 
 export function flash(message) {
@@ -44,6 +45,35 @@ function renderBattle(battle) {
 
   const lines = battle?.log?.length ? battle.log : ["\u6575\u3092\u63A2\u3057\u3066\u3044\u307E\u3059\u3002"];
   logElement.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("");
+}
+
+function renderInventory(inventory) {
+  const element = document.getElementById("inventory-list");
+  if (!element) return;
+
+  const materials = Object.values(inventory?.materials ?? {});
+  const equipment = inventory?.equipment ?? [];
+
+  if (!materials.length && !equipment.length) {
+    element.innerHTML = `<p class="inventory-empty">${escapeHtml("\u307E\u3060\u4F55\u3082\u6301\u3063\u3066\u3044\u307E\u305B\u3093\u3002")}</p>`;
+    return;
+  }
+
+  const materialRows = materials.map((item) => `
+    <div class="inventory-item">
+      <span>${escapeHtml(item.name)}</span>
+      <strong>x${item.quantity}</strong>
+    </div>
+  `);
+
+  const equipmentRows = equipment.map((item) => `
+    <div class="inventory-item">
+      <span>${escapeHtml(item.name)}</span>
+      <strong>+${item.enhanceLevel ?? 0}</strong>
+    </div>
+  `);
+
+  element.innerHTML = [...materialRows, ...equipmentRows].join("");
 }
 
 function setText(id, value) {
