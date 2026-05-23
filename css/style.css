@@ -224,6 +224,48 @@ button {
   min-height: 180px;
 }
 
+.job-card {
+  min-height: 150px;
+}
+
+.job-list {
+  display: grid;
+  gap: 8px;
+}
+
+.job-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 10px;
+  color: var(--text);
+  background: rgba(12, 11, 14, .35);
+  border: 1px solid rgba(67, 59, 72, .75);
+  border-radius: 8px;
+}
+
+.job-option.current {
+  border-color: rgba(215, 169, 77, .75);
+  background: rgba(215, 169, 77, .1);
+}
+
+.job-option-main {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.job-option-main span {
+  font-weight: 700;
+}
+
+.job-option-main small {
+  color: var(--muted);
+  font-size: .74rem;
+}
+
 .inventory-list {
   display: grid;
   gap: 8px;

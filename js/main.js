@@ -3,7 +3,7 @@ import { enhanceEquipment, loadEnhancementRules } from "./craft.js";
 import { equipItem, loadEquipmentDefinitions, unequipItem } from "./equipment.js";
 import { flash, render, setSaveIndicator } from "./render.js";
 import { attackEnemy, gainTestExp, loadEnemies, startNextBattle } from "./battle.js";
-import { loadJobDefinitions } from "./job.js";
+import { changeJob, loadJobDefinitions } from "./job.js";
 import { loadLootTables } from "./loot.js";
 
 subscribe((state) => {
@@ -88,6 +88,17 @@ function wireButtons() {
 
     update((state) => {
       const message = enhanceEquipment(state.player, button.dataset.instanceId);
+      state.uiMessage = message;
+      flash(message);
+    });
+  });
+
+  on("job-list", (event) => {
+    const button = event.target.closest("[data-job-id]");
+    if (!button || button.disabled) return;
+
+    update((state) => {
+      const message = changeJob(state.player, button.dataset.jobId);
       state.uiMessage = message;
       flash(message);
     });

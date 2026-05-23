@@ -1,6 +1,6 @@
 import { getEnhancementPreview } from "./craft.js";
 import { getPlayerStats } from "./equipment.js";
-import { getCurrentJob } from "./job.js";
+import { getAllJobs, getCurrentJob } from "./job.js";
 
 export function render(state) {
   const player = state.player;
@@ -27,6 +27,7 @@ export function render(state) {
 
   renderBattle(state.battle);
   renderInventory(player);
+  renderJobList(player);
 }
 
 export function flash(message) {
@@ -96,6 +97,33 @@ function renderInventory(player) {
   `);
 
   element.innerHTML = [...materialRows, ...equipmentRows].join("");
+}
+
+function renderJobList(player) {
+  const element = document.getElementById("job-list");
+  if (!element) return;
+
+  const currentJobId = player.jobId;
+  const rows = getAllJobs().map((job) => {
+    const isCurrent = job.id === currentJobId;
+    return `
+      <div class="job-option ${isCurrent ? "current" : ""}">
+        <div class="job-option-main">
+          <span>${escapeHtml(job.name)}</span>
+          <small>HP ${job.baseHp} / MP ${job.baseMp} / ATK ${job.baseAtk} / DEF ${job.baseDef}</small>
+        </div>
+        <button
+          class="mini-button"
+          data-job-id="${escapeHtml(job.id)}"
+          ${isCurrent ? "disabled" : ""}
+        >
+          ${escapeHtml(isCurrent ? "\u9078\u629E\u4E2D" : "\u9078\u629E")}
+        </button>
+      </div>
+    `;
+  });
+
+  element.innerHTML = rows.join("");
 }
 
 function renderEquippedActions(player, stats) {
