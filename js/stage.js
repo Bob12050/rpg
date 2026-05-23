@@ -22,6 +22,11 @@ export function getCurrentStage(state) {
   return getStageDefinition(state.currentStageId ?? DEFAULT_STAGE_ID);
 }
 
+export function getStageEnemyIds(state) {
+  const stage = getCurrentStage(state);
+  return stage?.enemyIds ?? [];
+}
+
 export function changeStage(state, stageId) {
   const stage = getStageDefinition(stageId);
   if (!stage) {

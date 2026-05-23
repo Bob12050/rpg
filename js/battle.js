@@ -2,6 +2,7 @@ import { update } from "./state.js";
 import { getPlayerStats } from "./equipment.js";
 import { addLootToInventory, rollLootForEnemy } from "./loot.js";
 import { calculateSkillDamage, getSkillDefinition } from "./skill.js";
+import { getDefaultStageId, getStageEnemyIds } from "./stage.js";
 
 let enemyDefinitions = [];
 let nextEnemyIndex = 0;
@@ -17,12 +18,16 @@ export async function loadEnemies() {
 export function startNextBattle() {
   if (!enemyDefinitions.length) return;
 
-  const definition = enemyDefinitions[nextEnemyIndex % enemyDefinitions.length];
-  nextEnemyIndex += 1;
-
   update((state) => {
+    const stageId = state.currentStageId ?? getDefaultStageId();
+    const stageEnemyIds = getStageEnemyIds(state);
+    const candidates = enemyDefinitions.filter((enemy) => stageEnemyIds.includes(enemy.id));
+    const pool = candidates.length ? candidates : enemyDefinitions;
+    const definition = pool[nextEnemyIndex % pool.length];
+    nextEnemyIndex += 1;
+
     state.battle = {
-      stageId: "first_forest",
+      stageId,
       enemy: createEnemy(definition),
       log: [`${definition.name}\u304C\u73FE\u308C\u305F\u3002`],
     };

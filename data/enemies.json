@@ -25,5 +25,32 @@
     "attack": 6,
     "exp": 9,
     "gold": 5
+  },
+  {
+    "id": "cave_slime",
+    "name": "\u6D1E\u7A9F\u30B9\u30E9\u30A4\u30E0",
+    "level": 3,
+    "maxHp": 28,
+    "attack": 7,
+    "exp": 11,
+    "gold": 7
+  },
+  {
+    "id": "crystal_bat",
+    "name": "\u6C34\u6676\u30B3\u30A6\u30E2\u30EA",
+    "level": 4,
+    "maxHp": 32,
+    "attack": 8,
+    "exp": 13,
+    "gold": 8
+  },
+  {
+    "id": "stone_goblin",
+    "name": "\u77F3\u30B4\u30D6\u30EA\u30F3",
+    "level": 4,
+    "maxHp": 36,
+    "attack": 9,
+    "exp": 15,
+    "gold": 9
   }
 ]
