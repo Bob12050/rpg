@@ -1,4 +1,4 @@
-const CACHE_NAME = "solo-hack-rpg-v19";
+const CACHE_NAME = "solo-hack-rpg-v20";
 const ASSETS = [
   "./",
   "./index.html",
