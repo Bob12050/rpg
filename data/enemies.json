@@ -61,7 +61,9 @@
     "attack": 11,
     "exp": 34,
     "gold": 28,
-    "isBoss": true
+    "isBoss": true,
+    "nextPhaseId": "forest_guardian_awakened",
+    "bossPhase": 1
   },
   {
     "id": "crystal_golem",
@@ -71,6 +73,30 @@
     "attack": 15,
     "exp": 55,
     "gold": 44,
-    "isBoss": true
+    "isBoss": true,
+    "nextPhaseId": "crystal_golem_rampage",
+    "bossPhase": 1
+  },
+  {
+    "id": "forest_guardian_awakened",
+    "name": "覚醒した森の守護獣",
+    "level": 6,
+    "maxHp": 115,
+    "attack": 14,
+    "exp": 60,
+    "gold": 48,
+    "isBoss": true,
+    "bossPhase": 2
+  },
+  {
+    "id": "crystal_golem_rampage",
+    "name": "暴走した水晶ゴーレム",
+    "level": 8,
+    "maxHp": 165,
+    "attack": 19,
+    "exp": 90,
+    "gold": 72,
+    "isBoss": true,
+    "bossPhase": 2
   }
 ]

@@ -198,5 +198,65 @@
       "minQuantity": 1,
       "maxQuantity": 1
     }
+  ],
+  "forest_guardian_awakened": [
+    {
+      "itemId": "small_branch",
+      "name": "小さな枝",
+      "type": "material",
+      "chance": 1,
+      "minQuantity": 3,
+      "maxQuantity": 5
+    },
+    {
+      "itemId": "wooden_sword",
+      "name": "木の剣",
+      "type": "equipment",
+      "chance": 0.45,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    },
+    {
+      "itemId": "leather_vest",
+      "name": "革のベスト",
+      "type": "equipment",
+      "chance": 0.4,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    }
+  ],
+  "crystal_golem_rampage": [
+    {
+      "itemId": "jiggly_jelly",
+      "name": "ぷるぷるゼリー",
+      "type": "material",
+      "chance": 1,
+      "minQuantity": 3,
+      "maxQuantity": 5
+    },
+    {
+      "itemId": "crystal_dagger",
+      "name": "水晶の短剣",
+      "type": "equipment",
+      "chance": 0.4,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    },
+    {
+      "itemId": "crystal_robe",
+      "name": "水晶のローブ",
+      "type": "equipment",
+      "chance": 0.38,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    },
+    {
+      "itemId": "stone_armor",
+      "name": "石の鎧",
+      "type": "equipment",
+      "chance": 0.25,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    }
   ]
 }

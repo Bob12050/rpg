@@ -64,7 +64,7 @@ export function attackEnemy() {
     pushLog(battle, `${enemy.name}に${playerDamage}ダメージ。`);
 
     if (enemy.hp <= 0) {
-      grantRewards(state, player, enemy, battle);
+      handleEnemyDefeated(state, player, battle);
       return;
     }
 
@@ -113,7 +113,7 @@ export function useSkill(skillId) {
     pushLog(battle, `${skill.name}！ ${enemy.name}に${skillDamage}ダメージ。`);
 
     if (enemy.hp <= 0) {
-      grantRewards(state, player, enemy, battle);
+      handleEnemyDefeated(state, player, battle);
       return;
     }
 
@@ -154,6 +154,8 @@ function getBossDefinition(bossId) {
 }
 
 function createEnemy(definition) {
+  const isBoss = Boolean(definition.isBoss);
+
   return {
     id: definition.id,
     name: definition.name,
@@ -163,8 +165,42 @@ function createEnemy(definition) {
     attack: definition.attack,
     exp: definition.exp,
     gold: definition.gold,
-    isBoss: Boolean(definition.isBoss),
+    isBoss,
+    nextPhaseId: definition.nextPhaseId ?? null,
+    bossPhase: definition.bossPhase ?? (isBoss ? 1 : null),
   };
+}
+
+function handleEnemyDefeated(state, player, battle) {
+  const enemy = battle?.enemy;
+  if (!enemy) return;
+
+  if (enemy.nextPhaseId && transformToNextPhase(enemy, battle)) {
+    return;
+  }
+
+  grantRewards(state, player, enemy, battle);
+}
+
+function transformToNextPhase(enemy, battle) {
+  const nextDefinition = getEnemyDefinition(enemy.nextPhaseId);
+
+  if (!nextDefinition) {
+    pushLog(battle, `次の形態が見つからないため、${enemy.name}を倒した扱いにします。`);
+    return false;
+  }
+
+  const nextEnemy = createEnemy(nextDefinition);
+  battle.enemy = nextEnemy;
+  battle.transformed = true;
+  battle.phase = nextEnemy.bossPhase ?? null;
+  pushLog(battle, `${enemy.name}が姿を変えた。`);
+  pushLog(battle, `${nextEnemy.name}が現れた。`);
+  return true;
+}
+
+function getEnemyDefinition(enemyId) {
+  return enemyDefinitions.find((enemy) => enemy.id === enemyId);
 }
 
 function grantRewards(state, player, enemy, battle) {

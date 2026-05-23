@@ -201,7 +201,10 @@ function getBossRequiredDefeats(stage) {
 }
 
 function formatEnemyName(enemy) {
-  return enemy.isBoss ? `【BOSS】${enemy.name}` : enemy.name;
+  if (!enemy.isBoss) return enemy.name;
+
+  const phaseLabel = enemy.bossPhase ? ` 第${enemy.bossPhase}形態` : "";
+  return `【BOSS${phaseLabel}】${enemy.name}`;
 }
 
 function renderEquippedActions(player, stats) {
