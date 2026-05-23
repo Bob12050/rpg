@@ -4,28 +4,32 @@
     "name": "粗末な短剣",
     "slot": "weapon",
     "atk": 3,
-    "def": 0
+    "def": 0,
+    "image": "assets/images/equipment/rusty_dagger.png"
   },
   "cloth_armor": {
     "id": "cloth_armor",
     "name": "布の服",
     "slot": "armor",
     "atk": 0,
-    "def": 2
+    "def": 2,
+    "image": "assets/images/equipment/cloth_armor.png"
   },
   "wooden_sword": {
     "id": "wooden_sword",
     "name": "木の剣",
     "slot": "weapon",
     "atk": 4,
-    "def": 0
+    "def": 0,
+    "image": "assets/images/equipment/wooden_sword.png"
   },
   "leather_vest": {
     "id": "leather_vest",
     "name": "革のベスト",
     "slot": "armor",
     "atk": 0,
-    "def": 3
+    "def": 3,
+    "image": "assets/images/equipment/leather_vest.png"
   },
   "iron_sword": {
     "id": "iron_sword",
@@ -40,20 +44,23 @@
     "name": "水晶の短剣",
     "slot": "weapon",
     "atk": 7,
-    "def": 0
+    "def": 0,
+    "image": "assets/images/equipment/crystal_dagger.png"
   },
   "stone_armor": {
     "id": "stone_armor",
     "name": "石の鎧",
     "slot": "armor",
     "atk": 0,
-    "def": 5
+    "def": 5,
+    "image": "assets/images/equipment/stone_armor.png"
   },
   "crystal_robe": {
     "id": "crystal_robe",
     "name": "水晶のローブ",
     "slot": "armor",
     "atk": 0,
-    "def": 4
+    "def": 4,
+    "image": "assets/images/equipment/crystal_robe.png"
   }
 }
