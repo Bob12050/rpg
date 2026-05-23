@@ -1,3 +1,5 @@
+import { getDefaultJobId, getJobDefinition } from "./job.js";
+
 const SAVE_KEY = "solo_hack_rpg_save_v1";
 
 let gameState = {
@@ -26,7 +28,7 @@ export async function initGame() {
   if (saved) {
     gameState = normalizeState(saved);
   } else {
-    const player = await loadInitialPlayer();
+    const player = normalizePlayer(await loadInitialPlayer());
     gameState = { player, battle: null };
   }
 
@@ -54,7 +56,7 @@ export function load() {
 
 export async function resetGame() {
   localStorage.removeItem(SAVE_KEY);
-  const player = await loadInitialPlayer();
+  const player = normalizePlayer(await loadInitialPlayer());
   gameState = { player, battle: null };
   notify();
 }
@@ -86,11 +88,21 @@ function normalizeState(state) {
 
 function normalizePlayer(player) {
   if (!player) return null;
+  const jobId = player.jobId ?? getDefaultJobId();
+  const job = getJobDefinition(jobId);
+  const maxHp = player.maxHp ?? job?.baseHp ?? 30;
+  const maxMp = player.maxMp ?? job?.baseMp ?? 10;
 
   return {
     ...player,
-    baseAtk: player.baseAtk ?? 5,
-    baseDef: player.baseDef ?? 0,
+    jobId,
+    job: player.job ?? job?.name ?? "\u6226\u58EB",
+    hp: player.hp ?? maxHp,
+    maxHp,
+    mp: player.mp ?? maxMp,
+    maxMp,
+    baseAtk: player.baseAtk ?? job?.baseAtk ?? 5,
+    baseDef: player.baseDef ?? job?.baseDef ?? 0,
     equipment: {
       weapon: player.equipment?.weapon ?? null,
       armor: player.equipment?.armor ?? null,

@@ -1,3 +1,5 @@
+import { getCurrentJob } from "./job.js";
+
 let equipmentDefinitions = {};
 
 export async function loadEquipmentDefinitions() {
@@ -55,12 +57,14 @@ export function unequipItem(player, slot) {
 export function getPlayerStats(player) {
   const weapon = getEquippedItem(player, "weapon");
   const armor = getEquippedItem(player, "armor");
+  const job = getCurrentJob(player);
 
   return {
-    atk: (player.baseAtk ?? 1) + (weapon?.atk ?? 0),
-    def: (player.baseDef ?? 0) + (armor?.def ?? 0),
+    atk: (job?.baseAtk ?? player.baseAtk ?? 1) + (weapon?.atk ?? 0),
+    def: (job?.baseDef ?? player.baseDef ?? 0) + (armor?.def ?? 0),
     weapon,
     armor,
+    job,
   };
 }
 

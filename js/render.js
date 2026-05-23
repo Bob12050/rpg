@@ -1,13 +1,15 @@
 import { getEnhancementPreview } from "./craft.js";
 import { getPlayerStats } from "./equipment.js";
+import { getCurrentJob } from "./job.js";
 
 export function render(state) {
   const player = state.player;
   if (!player) return;
   const stats = getPlayerStats(player);
+  const job = getCurrentJob(player);
 
   setText("p-name", player.name);
-  setText("p-job", player.job);
+  setText("p-job", job?.name ?? player.job);
   setText("p-level", player.level);
   setText("hp-text", `${player.hp} / ${player.maxHp}`);
   setText("mp-text", `${player.mp} / ${player.maxMp}`);

@@ -3,6 +3,7 @@ import { enhanceEquipment, loadEnhancementRules } from "./craft.js";
 import { equipItem, loadEquipmentDefinitions, unequipItem } from "./equipment.js";
 import { flash, render, setSaveIndicator } from "./render.js";
 import { attackEnemy, gainTestExp, loadEnemies, startNextBattle } from "./battle.js";
+import { loadJobDefinitions } from "./job.js";
 import { loadLootTables } from "./loot.js";
 
 subscribe((state) => {
@@ -111,6 +112,7 @@ function wireButtons() {
 
 async function boot() {
   try {
+    await loadJobDefinitions();
     await loadEquipmentDefinitions();
     await loadEnhancementRules();
     await loadEnemies();

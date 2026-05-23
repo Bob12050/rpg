@@ -1,0 +1,18 @@
+{
+  "warrior": {
+    "id": "warrior",
+    "name": "\u6226\u58EB",
+    "baseHp": 30,
+    "baseMp": 10,
+    "baseAtk": 5,
+    "baseDef": 1
+  },
+  "mage": {
+    "id": "mage",
+    "name": "\u9B54\u6CD5\u4F7F\u3044",
+    "baseHp": 22,
+    "baseMp": 18,
+    "baseAtk": 3,
+    "baseDef": 0
+  }
+}
