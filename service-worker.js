@@ -1,4 +1,4 @@
-const CACHE_NAME = "solo-hack-rpg-v21";
+const CACHE_NAME = "solo-hack-rpg-v22";
 const ASSETS = [
   "./",
   "./index.html",
@@ -24,7 +24,12 @@ const ASSETS = [
   "./data/stages.json",
   "./assets/images/icon-192.png",
   "./assets/images/icon-512.png",
-  "./assets/images/enemies/forest_slime.png"
+  "./assets/images/enemies/forest_slime.png",
+  "./assets/images/enemies/twig_goblin.png",
+  "./assets/images/enemies/moss_bat.png",
+  "./assets/images/enemies/cave_slime.png",
+  "./assets/images/enemies/crystal_bat.png",
+  "./assets/images/enemies/stone_goblin.png"
 ];
 
 self.addEventListener("install", (event) => {
