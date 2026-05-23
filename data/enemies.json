@@ -1,7 +1,7 @@
 [
   {
     "id": "forest_slime",
-    "name": "\u68EE\u30B9\u30E9\u30A4\u30E0",
+    "name": "森スライム",
     "level": 1,
     "maxHp": 18,
     "attack": 4,
@@ -10,7 +10,7 @@
   },
   {
     "id": "twig_goblin",
-    "name": "\u5C0F\u679D\u30B4\u30D6\u30EA\u30F3",
+    "name": "小枝ゴブリン",
     "level": 2,
     "maxHp": 24,
     "attack": 5,
@@ -19,7 +19,7 @@
   },
   {
     "id": "moss_bat",
-    "name": "\u82D4\u30B3\u30A6\u30E2\u30EA",
+    "name": "苔コウモリ",
     "level": 2,
     "maxHp": 20,
     "attack": 6,
@@ -28,7 +28,7 @@
   },
   {
     "id": "cave_slime",
-    "name": "\u6D1E\u7A9F\u30B9\u30E9\u30A4\u30E0",
+    "name": "洞窟スライム",
     "level": 3,
     "maxHp": 28,
     "attack": 7,
@@ -37,7 +37,7 @@
   },
   {
     "id": "crystal_bat",
-    "name": "\u6C34\u6676\u30B3\u30A6\u30E2\u30EA",
+    "name": "水晶コウモリ",
     "level": 4,
     "maxHp": 32,
     "attack": 8,
@@ -46,11 +46,31 @@
   },
   {
     "id": "stone_goblin",
-    "name": "\u77F3\u30B4\u30D6\u30EA\u30F3",
+    "name": "石ゴブリン",
     "level": 4,
     "maxHp": 36,
     "attack": 9,
     "exp": 15,
     "gold": 9
+  },
+  {
+    "id": "forest_guardian",
+    "name": "森の守護獣",
+    "level": 5,
+    "maxHp": 80,
+    "attack": 11,
+    "exp": 34,
+    "gold": 28,
+    "isBoss": true
+  },
+  {
+    "id": "crystal_golem",
+    "name": "水晶ゴーレム",
+    "level": 7,
+    "maxHp": 120,
+    "attack": 15,
+    "exp": 55,
+    "gold": 44,
+    "isBoss": true
   }
 ]

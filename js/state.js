@@ -1,5 +1,5 @@
 import { getDefaultJobId, getJobDefinition } from "./job.js";
-import { getDefaultStageId } from "./stage.js";
+import { getAllStages, getDefaultStageId } from "./stage.js";
 
 const SAVE_KEY = "solo_hack_rpg_save_v1";
 
@@ -7,6 +7,7 @@ let gameState = {
   player: null,
   battle: null,
   currentStageId: getDefaultStageId(),
+  stageProgress: createStageProgress(),
 };
 
 const listeners = [];
@@ -31,7 +32,7 @@ export async function initGame() {
     gameState = normalizeState(saved);
   } else {
     const player = normalizePlayer(await loadInitialPlayer());
-    gameState = { player, battle: null, currentStageId: getDefaultStageId() };
+    gameState = createInitialState(player);
   }
 
   notify();
@@ -59,7 +60,7 @@ export function load() {
 export async function resetGame() {
   localStorage.removeItem(SAVE_KEY);
   const player = normalizePlayer(await loadInitialPlayer());
-  gameState = { player, battle: null, currentStageId: getDefaultStageId() };
+  gameState = createInitialState(player);
   notify();
 }
 
@@ -81,12 +82,65 @@ function loadFromStorage() {
   }
 }
 
+function createInitialState(player) {
+  return {
+    player,
+    battle: null,
+    currentStageId: getDefaultStageId(),
+    stageProgress: createStageProgress(),
+  };
+}
+
 function normalizeState(state) {
+  const currentStageId = state.currentStageId ?? getDefaultStageId();
+
   return {
     player: normalizePlayer(state.player),
     battle: state.battle ?? null,
-    currentStageId: state.currentStageId ?? getDefaultStageId(),
+    currentStageId,
+    stageProgress: normalizeStageProgress(state.stageProgress, currentStageId),
   };
+}
+
+function createStageProgress() {
+  const progress = {};
+  const stages = getAllStages();
+
+  if (!stages.length) {
+    progress[getDefaultStageId()] = { normalDefeatCount: 0 };
+    return progress;
+  }
+
+  for (const stage of stages) {
+    progress[stage.id] = { normalDefeatCount: 0 };
+  }
+
+  return progress;
+}
+
+function normalizeStageProgress(savedProgress = {}, currentStageId = getDefaultStageId()) {
+  const progress = {};
+  const stageIds = new Set(getAllStages().map((stage) => stage.id));
+  stageIds.add(currentStageId);
+  stageIds.add(getDefaultStageId());
+
+  for (const stageId of Object.keys(savedProgress ?? {})) {
+    stageIds.add(stageId);
+  }
+
+  for (const stageId of stageIds) {
+    const savedCount = savedProgress?.[stageId]?.normalDefeatCount;
+    progress[stageId] = {
+      normalDefeatCount: normalizeCount(savedCount),
+    };
+  }
+
+  return progress;
+}
+
+function normalizeCount(value) {
+  const count = Number(value);
+  return Number.isFinite(count) ? Math.max(0, Math.floor(count)) : 0;
 }
 
 function normalizePlayer(player) {
@@ -99,7 +153,7 @@ function normalizePlayer(player) {
   return {
     ...player,
     jobId,
-    job: player.job ?? job?.name ?? "\u6226\u58EB",
+    job: player.job ?? job?.name ?? "戦士",
     hp: player.hp ?? maxHp,
     maxHp,
     mp: player.mp ?? maxMp,

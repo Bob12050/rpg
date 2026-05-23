@@ -2,7 +2,7 @@
   "forest_slime": [
     {
       "itemId": "jiggly_jelly",
-      "name": "\u3077\u308B\u3077\u308B\u30BC\u30EA\u30FC",
+      "name": "ぷるぷるゼリー",
       "type": "material",
       "chance": 1,
       "minQuantity": 1,
@@ -10,7 +10,7 @@
     },
     {
       "itemId": "rusty_dagger",
-      "name": "\u7C97\u672B\u306A\u77ED\u5263",
+      "name": "粗末な短剣",
       "type": "equipment",
       "chance": 1,
       "minQuantity": 1,
@@ -20,7 +20,7 @@
   "twig_goblin": [
     {
       "itemId": "small_branch",
-      "name": "\u5C0F\u3055\u306A\u679D",
+      "name": "小さな枝",
       "type": "material",
       "chance": 0.8,
       "minQuantity": 1,
@@ -28,7 +28,7 @@
     },
     {
       "itemId": "rusty_dagger",
-      "name": "\u7C97\u672B\u306A\u77ED\u5263",
+      "name": "粗末な短剣",
       "type": "equipment",
       "chance": 0.25,
       "minQuantity": 1,
@@ -36,7 +36,7 @@
     },
     {
       "itemId": "wooden_sword",
-      "name": "\u6728\u306E\u5263",
+      "name": "木の剣",
       "type": "equipment",
       "chance": 0.2,
       "minQuantity": 1,
@@ -46,7 +46,7 @@
   "moss_bat": [
     {
       "itemId": "mossy_wing",
-      "name": "\u82D4\u3080\u3057\u305F\u7FBD",
+      "name": "苔むした羽",
       "type": "material",
       "chance": 0.75,
       "minQuantity": 1,
@@ -54,7 +54,7 @@
     },
     {
       "itemId": "leather_vest",
-      "name": "\u9769\u306E\u30D9\u30B9\u30C8",
+      "name": "革のベスト",
       "type": "equipment",
       "chance": 0.18,
       "minQuantity": 1,
@@ -64,7 +64,7 @@
   "cave_slime": [
     {
       "itemId": "jiggly_jelly",
-      "name": "\u3077\u308B\u3077\u308B\u30BC\u30EA\u30FC",
+      "name": "ぷるぷるゼリー",
       "type": "material",
       "chance": 0.9,
       "minQuantity": 1,
@@ -72,7 +72,7 @@
     },
     {
       "itemId": "cloth_armor",
-      "name": "\u5E03\u306E\u670D",
+      "name": "布の服",
       "type": "equipment",
       "chance": 0.2,
       "minQuantity": 1,
@@ -80,7 +80,7 @@
     },
     {
       "itemId": "crystal_robe",
-      "name": "\u6C34\u6676\u306E\u30ED\u30FC\u30D6",
+      "name": "水晶のローブ",
       "type": "equipment",
       "chance": 0.15,
       "minQuantity": 1,
@@ -90,7 +90,7 @@
   "crystal_bat": [
     {
       "itemId": "mossy_wing",
-      "name": "\u82D4\u3080\u3057\u305F\u7FBD",
+      "name": "苔むした羽",
       "type": "material",
       "chance": 0.8,
       "minQuantity": 1,
@@ -98,7 +98,7 @@
     },
     {
       "itemId": "rusty_dagger",
-      "name": "\u7C97\u672B\u306A\u77ED\u5263",
+      "name": "粗末な短剣",
       "type": "equipment",
       "chance": 0.2,
       "minQuantity": 1,
@@ -106,7 +106,7 @@
     },
     {
       "itemId": "crystal_dagger",
-      "name": "\u6C34\u6676\u306E\u77ED\u5263",
+      "name": "水晶の短剣",
       "type": "equipment",
       "chance": 0.15,
       "minQuantity": 1,
@@ -116,7 +116,7 @@
   "stone_goblin": [
     {
       "itemId": "small_branch",
-      "name": "\u5C0F\u3055\u306A\u679D",
+      "name": "小さな枝",
       "type": "material",
       "chance": 0.85,
       "minQuantity": 1,
@@ -124,7 +124,7 @@
     },
     {
       "itemId": "cloth_armor",
-      "name": "\u5E03\u306E\u670D",
+      "name": "布の服",
       "type": "equipment",
       "chance": 0.25,
       "minQuantity": 1,
@@ -132,7 +132,7 @@
     },
     {
       "itemId": "iron_sword",
-      "name": "\u9244\u306E\u5263",
+      "name": "鉄の剣",
       "type": "equipment",
       "chance": 0.18,
       "minQuantity": 1,
@@ -140,9 +140,61 @@
     },
     {
       "itemId": "stone_armor",
-      "name": "\u77F3\u306E\u93A7",
+      "name": "石の鎧",
       "type": "equipment",
       "chance": 0.12,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    }
+  ],
+  "forest_guardian": [
+    {
+      "itemId": "small_branch",
+      "name": "小さな枝",
+      "type": "material",
+      "chance": 1,
+      "minQuantity": 2,
+      "maxQuantity": 4
+    },
+    {
+      "itemId": "leather_vest",
+      "name": "革のベスト",
+      "type": "equipment",
+      "chance": 0.35,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    },
+    {
+      "itemId": "wooden_sword",
+      "name": "木の剣",
+      "type": "equipment",
+      "chance": 0.3,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    }
+  ],
+  "crystal_golem": [
+    {
+      "itemId": "jiggly_jelly",
+      "name": "ぷるぷるゼリー",
+      "type": "material",
+      "chance": 1,
+      "minQuantity": 2,
+      "maxQuantity": 4
+    },
+    {
+      "itemId": "crystal_dagger",
+      "name": "水晶の短剣",
+      "type": "equipment",
+      "chance": 0.3,
+      "minQuantity": 1,
+      "maxQuantity": 1
+    },
+    {
+      "itemId": "crystal_robe",
+      "name": "水晶のローブ",
+      "type": "equipment",
+      "chance": 0.28,
       "minQuantity": 1,
       "maxQuantity": 1
     }

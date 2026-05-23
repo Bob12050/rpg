@@ -50,7 +50,7 @@ export function setSaveIndicator(message) {
 function renderBattle(battle, player) {
   const enemy = battle?.enemy;
 
-  setText("enemy-name", enemy ? enemy.name : "-");
+  setText("enemy-name", enemy ? formatEnemyName(enemy) : "-");
   setText("enemy-level", enemy ? enemy.level : "-");
   setText("enemy-hp-text", enemy ? `${enemy.hp} / ${enemy.maxHp}` : "-");
   setBar("enemy-hp-bar", enemy ? enemy.hp : 0, enemy ? enemy.maxHp : 1);
@@ -159,7 +159,7 @@ function renderStageList(state) {
       <div class="stage-option ${isCurrent ? "current" : ""}">
         <div class="stage-option-main">
           <span>${escapeHtml(stage.name)}</span>
-          <small>Lv ${stage.recommendedLevel} / ${escapeHtml(stage.description)}</small>
+          <small>Lv ${stage.recommendedLevel} / ${escapeHtml(stage.description)} / ${escapeHtml(formatBossProgress(state, stage))}</small>
         </div>
         <button
           class="mini-button"
@@ -173,6 +173,35 @@ function renderStageList(state) {
   });
 
   element.innerHTML = rows.join("");
+}
+
+function formatBossProgress(state, stage) {
+  if (!stage?.bossId) return "ボスなし";
+
+  const requiredDefeats = getBossRequiredDefeats(stage);
+  const currentCount = getNormalDefeatCount(state, stage.id);
+  const bossIsActive = state.battle?.stageId === stage.id
+    && state.battle?.enemy?.isBoss
+    && state.battle?.enemy?.hp > 0;
+
+  if (bossIsActive) return "ボス出現中";
+  if (currentCount >= requiredDefeats) return "次の戦闘でボス出現";
+
+  return `ボスまであと ${requiredDefeats - currentCount}体`;
+}
+
+function getNormalDefeatCount(state, stageId) {
+  const count = Number(state.stageProgress?.[stageId]?.normalDefeatCount);
+  return Number.isFinite(count) ? Math.max(0, Math.floor(count)) : 0;
+}
+
+function getBossRequiredDefeats(stage) {
+  const value = Number(stage?.bossRequiredDefeats);
+  return Number.isFinite(value) ? Math.max(1, Math.floor(value)) : 5;
+}
+
+function formatEnemyName(enemy) {
+  return enemy.isBoss ? `【BOSS】${enemy.name}` : enemy.name;
 }
 
 function renderEquippedActions(player, stats) {
