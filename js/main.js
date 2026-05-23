@@ -67,6 +67,7 @@ function wireButtons() {
   });
 
   on("btn-next-enemy", () => {
+    if (isBossBattleActive(getState())) return;
     startNextBattle();
   });
 
@@ -161,6 +162,10 @@ async function boot() {
       navigator.serviceWorker.register("service-worker.js").catch(() => {});
     });
   }
+}
+
+function isBossBattleActive(state) {
+  return Boolean(state.battle?.enemy?.isBoss && state.battle.enemy.hp > 0);
 }
 
 function on(id, handler) {

@@ -409,6 +409,15 @@ button {
   transform: translateY(1px);
 }
 
+.button:disabled {
+  cursor: default;
+  opacity: .45;
+}
+
+.button:disabled:active {
+  transform: none;
+}
+
 .button.primary {
   background: linear-gradient(180deg, #a9702f, #835322);
   border-color: rgba(215, 169, 77, .7);

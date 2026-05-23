@@ -28,6 +28,7 @@ export function render(state) {
   setBar("exp-bar", player.exp, player.expToNext);
 
   renderBattle(state.battle, player);
+  syncNextEnemyButton(state);
   renderInventory(player);
   renderJobList(player);
   renderStageList(state);
@@ -62,6 +63,18 @@ function renderBattle(battle, player) {
   logElement.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("");
 
   renderSkillActions(player);
+}
+
+function syncNextEnemyButton(state) {
+  const button = document.getElementById("btn-next-enemy");
+  if (!button) return;
+
+  const isBossBattleActive = Boolean(
+    state.battle?.enemy?.isBoss && state.battle.enemy.hp > 0
+  );
+
+  button.disabled = isBossBattleActive;
+  button.textContent = isBossBattleActive ? "ボス戦中" : "次の敵";
 }
 
 function renderSkillActions(player) {
