@@ -380,6 +380,45 @@ button {
   overflow-wrap: anywhere;
 }
 
+.equipment-row-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.equipment-text {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.equipment-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.equipment-with-icon span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.equipment-icon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  background: none;
+  background-image: none;
+  border: 0;
+}
+
+.equipment-icon[hidden] {
+  display: none;
+}
+
 .mini-button {
   flex: 0 0 auto;
   min-height: 32px;

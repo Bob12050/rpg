@@ -21,6 +21,7 @@ export function createEquipmentItem(itemId) {
     slot: definition.slot,
     atk: definition.atk ?? 0,
     def: definition.def ?? 0,
+    image: definition.image ?? null,
     enhanceLevel: 0,
   };
 }
@@ -71,7 +72,12 @@ export function getPlayerStats(player) {
 export function getEquippedItem(player, slot) {
   const instanceId = player.equipment?.[slot];
   if (!instanceId) return null;
-  return findEquipmentItem(player, instanceId);
+  const item = findEquipmentItem(player, instanceId);
+  return item ? normalizeEquipmentItem(item) : null;
+}
+
+export function getEquipmentDisplayItem(item) {
+  return item ? normalizeEquipmentItem(item) : null;
 }
 
 function findEquipmentItem(player, instanceId) {
@@ -87,6 +93,7 @@ function normalizeEquipmentItem(item) {
     slot: item.slot ?? definition.slot ?? null,
     atk: item.atk ?? definition.atk ?? 0,
     def: item.def ?? definition.def ?? 0,
+    image: item.image ?? definition.image ?? null,
     enhanceLevel: item.enhanceLevel ?? 0,
   };
 }

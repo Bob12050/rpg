@@ -1,5 +1,5 @@
 import { getEnhancementPreview } from "./craft.js";
-import { getPlayerStats } from "./equipment.js";
+import { getEquipmentDisplayItem, getPlayerStats } from "./equipment.js";
 import { getAllJobs, getCurrentJob } from "./job.js";
 import { getSkillsForCurrentJob } from "./skill.js";
 import { getAllStages } from "./stage.js";
@@ -19,8 +19,8 @@ export function render(state) {
   setText("p-gold", player.gold);
   setText("p-atk", stats.atk);
   setText("p-def", stats.def);
-  setText("equipped-weapon", formatEquipmentName(stats.weapon));
-  setText("equipped-armor", formatEquipmentName(stats.armor));
+  renderEquippedItem("equipped-weapon", stats.weapon);
+  renderEquippedItem("equipped-armor", stats.armor);
   renderEquippedActions(player, stats);
 
   setBar("hp-bar", player.hp, player.maxHp);
@@ -93,6 +93,44 @@ function renderEnemyArt(enemy) {
   }
 }
 
+function renderEquippedItem(id, item) {
+  const element = document.getElementById(id);
+  if (!element) return;
+
+  const displayItem = getEquipmentDisplayItem(item);
+  const name = escapeHtml(formatEquipmentName(displayItem));
+  element.innerHTML = `
+    <span class="equipment-with-icon">
+      ${renderEquipmentIcon(displayItem)}
+      <span>${name}</span>
+    </span>
+  `;
+  setupEquipmentImageFallbacks(element);
+}
+
+function renderEquipmentIcon(item) {
+  if (!item?.image) return "";
+
+  const alt = item?.name ? `${item.name}の画像` : "装備画像";
+  return `
+    <img
+      class="equipment-icon"
+      src="${escapeHtml(item.image)}"
+      alt="${escapeHtml(alt)}"
+      loading="lazy"
+    />
+  `;
+}
+
+function setupEquipmentImageFallbacks(root) {
+  root.querySelectorAll(".equipment-icon").forEach((image) => {
+    image.onerror = () => {
+      image.hidden = true;
+      image.removeAttribute("src");
+    };
+  });
+}
+
 function syncNextEnemyButton(state) {
   const button = document.getElementById("btn-next-enemy");
   if (!button) return;
@@ -142,24 +180,31 @@ function renderInventory(player) {
     </div>
   `);
 
-  const equipmentRows = equipment.map((item) => `
-    <div class="inventory-item">
-      <div class="inventory-main">
-        <span>${escapeHtml(formatEquipmentName(item))}</span>
-        <small>${escapeHtml(formatEnhancementCost(player, item))}</small>
+  const equipmentRows = equipment.map((item) => {
+    const displayItem = getEquipmentDisplayItem(item);
+    return `
+      <div class="inventory-item">
+        <div class="inventory-main equipment-row-main">
+          ${renderEquipmentIcon(displayItem)}
+          <div class="equipment-text">
+            <span>${escapeHtml(formatEquipmentName(displayItem))}</span>
+            <small>${escapeHtml(formatEnhancementCost(player, displayItem))}</small>
+          </div>
+        </div>
+        <div class="item-actions">
+          <button class="mini-button" data-action="equip" data-instance-id="${escapeHtml(item.instanceId)}">
+            ${escapeHtml("\u88C5\u5099")}
+          </button>
+          <button class="mini-button" data-action="enhance" data-instance-id="${escapeHtml(item.instanceId)}">
+            ${escapeHtml("\u5F37\u5316")}
+          </button>
+        </div>
       </div>
-      <div class="item-actions">
-        <button class="mini-button" data-action="equip" data-instance-id="${escapeHtml(item.instanceId)}">
-          ${escapeHtml("\u88C5\u5099")}
-        </button>
-        <button class="mini-button" data-action="enhance" data-instance-id="${escapeHtml(item.instanceId)}">
-          ${escapeHtml("\u5F37\u5316")}
-        </button>
-      </div>
-    </div>
-  `);
+    `;
+  });
 
   element.innerHTML = [...materialRows, ...equipmentRows].join("");
+  setupEquipmentImageFallbacks(element);
 }
 
 function renderJobList(player) {
