@@ -249,15 +249,36 @@ button {
   border-radius: 8px;
 }
 
-.inventory-item span {
+.inventory-main {
   min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.inventory-item span {
   overflow-wrap: anywhere;
 }
 
-.inventory-item strong {
+.inventory-main small {
+  color: var(--muted);
+  font-size: .74rem;
+}
+
+.inventory-item strong,
+.item-actions {
   flex: 0 0 auto;
+}
+
+.inventory-item strong {
   color: var(--gold);
   font-variant-numeric: tabular-nums;
+}
+
+.item-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .equipped-list {
@@ -267,7 +288,7 @@ button {
 
 .equipped-row {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
   gap: 10px;
   min-height: 40px;
@@ -295,6 +316,11 @@ button {
   cursor: pointer;
   font-size: .8rem;
   font-weight: 700;
+}
+
+.mini-button:disabled {
+  cursor: default;
+  opacity: .45;
 }
 
 .mini-button:active {

@@ -1,4 +1,5 @@
 import { getState, initGame, load, resetGame, save, subscribe, update } from "./state.js";
+import { enhanceEquipment, loadEnhancementRules } from "./craft.js";
 import { equipItem, loadEquipmentDefinitions, unequipItem } from "./equipment.js";
 import { flash, render, setSaveIndicator } from "./render.js";
 import { attackEnemy, gainTestExp, loadEnemies, startNextBattle } from "./battle.js";
@@ -67,11 +68,25 @@ function wireButtons() {
   });
 
   on("inventory-list", (event) => {
-    const button = event.target.closest("[data-action='equip']");
+    const button = event.target.closest("[data-action]");
     if (!button) return;
 
     update((state) => {
-      const message = equipItem(state.player, button.dataset.instanceId);
+      const action = button.dataset.action;
+      const message = action === "enhance"
+        ? enhanceEquipment(state.player, button.dataset.instanceId)
+        : equipItem(state.player, button.dataset.instanceId);
+      state.uiMessage = message;
+      flash(message);
+    });
+  });
+
+  on("equipped-list", (event) => {
+    const button = event.target.closest("[data-action='enhance']");
+    if (!button) return;
+
+    update((state) => {
+      const message = enhanceEquipment(state.player, button.dataset.instanceId);
       state.uiMessage = message;
       flash(message);
     });
@@ -97,6 +112,7 @@ function wireButtons() {
 async function boot() {
   try {
     await loadEquipmentDefinitions();
+    await loadEnhancementRules();
     await loadEnemies();
     await loadLootTables();
     await initGame();

@@ -1,0 +1,12 @@
+{
+  "default": {
+    "materialId": "jiggly_jelly",
+    "materialName": "\u3077\u308B\u3077\u308B\u30BC\u30EA\u30FC",
+    "baseGold": 4,
+    "goldPerLevel": 8,
+    "baseMaterials": 1,
+    "materialPerLevel": 1,
+    "atkPerLevel": 2,
+    "defPerLevel": 1
+  }
+}
