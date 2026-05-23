@@ -1,0 +1,20 @@
+{
+  "power_strike": {
+    "id": "power_strike",
+    "name": "\u5F37\u6483",
+    "mpCost": 3,
+    "kind": "attackMultiplier",
+    "powerMultiplier": 1.8,
+    "flatDamage": 0,
+    "levelBonus": 2
+  },
+  "fire": {
+    "id": "fire",
+    "name": "\u30D5\u30A1\u30A4\u30A2",
+    "mpCost": 4,
+    "kind": "magicFlat",
+    "powerMultiplier": 0.7,
+    "flatDamage": 10,
+    "levelBonus": 2
+  }
+}

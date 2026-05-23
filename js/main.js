@@ -2,9 +2,10 @@ import { getState, initGame, load, resetGame, save, subscribe, update } from "./
 import { enhanceEquipment, loadEnhancementRules } from "./craft.js";
 import { equipItem, loadEquipmentDefinitions, unequipItem } from "./equipment.js";
 import { flash, render, setSaveIndicator } from "./render.js";
-import { attackEnemy, gainTestExp, loadEnemies, startNextBattle } from "./battle.js";
+import { attackEnemy, gainTestExp, loadEnemies, startNextBattle, useSkill } from "./battle.js";
 import { changeJob, loadJobDefinitions } from "./job.js";
 import { loadLootTables } from "./loot.js";
+import { loadSkillDefinitions } from "./skill.js";
 
 subscribe((state) => {
   render(state);
@@ -68,6 +69,12 @@ function wireButtons() {
     startNextBattle();
   });
 
+  on("skill-actions", (event) => {
+    const button = event.target.closest("[data-skill-id]");
+    if (!button) return;
+    useSkill(button.dataset.skillId);
+  });
+
   on("inventory-list", (event) => {
     const button = event.target.closest("[data-action]");
     if (!button) return;
@@ -124,6 +131,7 @@ function wireButtons() {
 async function boot() {
   try {
     await loadJobDefinitions();
+    await loadSkillDefinitions();
     await loadEquipmentDefinitions();
     await loadEnhancementRules();
     await loadEnemies();

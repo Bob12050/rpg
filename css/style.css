@@ -376,6 +376,13 @@ button {
   margin-top: 10px;
 }
 
+.skill-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 .button {
   flex: 1 1 130px;
   min-height: 44px;
@@ -395,6 +402,16 @@ button {
 .button.primary {
   background: linear-gradient(180deg, #a9702f, #835322);
   border-color: rgba(215, 169, 77, .7);
+}
+
+.button.skill-button {
+  background: linear-gradient(180deg, #465b72, #344354);
+  border-color: rgba(93, 164, 217, .5);
+}
+
+.button.skill-button span {
+  color: var(--muted);
+  font-size: .78rem;
 }
 
 .button.subtle {

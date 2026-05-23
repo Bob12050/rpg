@@ -5,7 +5,8 @@
     "baseHp": 30,
     "baseMp": 10,
     "baseAtk": 5,
-    "baseDef": 1
+    "baseDef": 1,
+    "skillIds": ["power_strike"]
   },
   "mage": {
     "id": "mage",
@@ -13,6 +14,7 @@
     "baseHp": 22,
     "baseMp": 18,
     "baseAtk": 3,
-    "baseDef": 0
+    "baseDef": 0,
+    "skillIds": ["fire"]
   }
 }

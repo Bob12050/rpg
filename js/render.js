@@ -1,6 +1,7 @@
 import { getEnhancementPreview } from "./craft.js";
 import { getPlayerStats } from "./equipment.js";
 import { getAllJobs, getCurrentJob } from "./job.js";
+import { getSkillsForCurrentJob } from "./skill.js";
 
 export function render(state) {
   const player = state.player;
@@ -25,7 +26,7 @@ export function render(state) {
   setBar("mp-bar", player.mp, player.maxMp);
   setBar("exp-bar", player.exp, player.expToNext);
 
-  renderBattle(state.battle);
+  renderBattle(state.battle, player);
   renderInventory(player);
   renderJobList(player);
 }
@@ -44,7 +45,7 @@ export function setSaveIndicator(message) {
   setText("save-indicator", message);
 }
 
-function renderBattle(battle) {
+function renderBattle(battle, player) {
   const enemy = battle?.enemy;
 
   setText("enemy-name", enemy ? enemy.name : "-");
@@ -57,6 +58,25 @@ function renderBattle(battle) {
 
   const lines = battle?.log?.length ? battle.log : ["\u6575\u3092\u63A2\u3057\u3066\u3044\u307E\u3059\u3002"];
   logElement.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("");
+
+  renderSkillActions(player);
+}
+
+function renderSkillActions(player) {
+  const element = document.getElementById("skill-actions");
+  if (!element) return;
+
+  const skills = getSkillsForCurrentJob(player);
+  if (!skills.length) {
+    element.innerHTML = "";
+    return;
+  }
+
+  element.innerHTML = skills.map((skill) => `
+    <button class="button skill-button" data-skill-id="${escapeHtml(skill.id)}">
+      ${escapeHtml(skill.name)} <span>MP ${skill.mpCost}</span>
+    </button>
+  `).join("");
 }
 
 function renderInventory(player) {

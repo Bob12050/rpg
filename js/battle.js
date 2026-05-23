@@ -1,6 +1,7 @@
 import { update } from "./state.js";
 import { getPlayerStats } from "./equipment.js";
 import { addLootToInventory, rollLootForEnemy } from "./loot.js";
+import { calculateSkillDamage, getSkillDefinition } from "./skill.js";
 
 let enemyDefinitions = [];
 let nextEnemyIndex = 0;
@@ -49,6 +50,55 @@ export function attackEnemy() {
     const playerDamage = Math.max(1, stats.atk + player.level * 2);
     enemy.hp = Math.max(0, enemy.hp - playerDamage);
     pushLog(battle, `${enemy.name}\u306B${playerDamage}\u30C0\u30E1\u30FC\u30B8\u3002`);
+
+    if (enemy.hp <= 0) {
+      grantRewards(player, enemy, battle);
+      return;
+    }
+
+    const enemyDamage = Math.max(1, enemy.attack - stats.def);
+    player.hp = Math.max(0, player.hp - enemyDamage);
+    pushLog(battle, `${enemy.name}\u304B\u3089${enemyDamage}\u30C0\u30E1\u30FC\u30B8\u3002`);
+
+    if (player.hp <= 0) {
+      pushLog(battle, "\u5012\u308C\u3066\u3057\u307E\u3063\u305F\u3002\u56DE\u5FA9\u3057\u3066\u7ACB\u3066\u76F4\u305D\u3046\u3002");
+    }
+  });
+}
+
+export function useSkill(skillId) {
+  update((state) => {
+    const player = state.player;
+    const battle = state.battle;
+    const enemy = battle?.enemy;
+    if (!player || !battle || !enemy) return;
+
+    if (player.hp <= 0) {
+      pushLog(battle, "HP\u304C0\u3067\u3059\u3002\u56DE\u5FA9\u3057\u3066\u304B\u3089\u6226\u304A\u3046\u3002");
+      return;
+    }
+
+    if (enemy.hp <= 0) {
+      pushLog(battle, "\u6575\u306F\u3082\u3046\u5012\u308C\u3066\u3044\u308B\u3002\u6B21\u306E\u6575\u3092\u63A2\u305D\u3046\u3002");
+      return;
+    }
+
+    const skill = getSkillDefinition(skillId);
+    if (!skill) {
+      pushLog(battle, "\u30B9\u30AD\u30EB\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3002");
+      return;
+    }
+
+    if (player.mp < skill.mpCost) {
+      pushLog(battle, `MP\u304C\u8DB3\u308A\u305A\u3001${skill.name}\u3092\u4F7F\u3048\u306A\u3044\u3002`);
+      return;
+    }
+
+    const stats = getPlayerStats(player);
+    const skillDamage = calculateSkillDamage(skill, player, stats);
+    player.mp = Math.max(0, player.mp - skill.mpCost);
+    enemy.hp = Math.max(0, enemy.hp - skillDamage);
+    pushLog(battle, `${skill.name}\uFF01 ${enemy.name}\u306B${skillDamage}\u30C0\u30E1\u30FC\u30B8\u3002`);
 
     if (enemy.hp <= 0) {
       grantRewards(player, enemy, battle);
