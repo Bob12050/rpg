@@ -176,6 +176,30 @@ button {
   margin-top: 14px;
 }
 
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.stat-grid div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 38px;
+  padding: 8px 10px;
+  color: var(--muted);
+  background: rgba(12, 11, 14, .35);
+  border: 1px solid rgba(67, 59, 72, .75);
+  border-radius: 8px;
+}
+
+.stat-grid strong {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
 .battle-log {
   min-height: 116px;
   margin-top: 14px;
@@ -203,6 +227,7 @@ button {
 .inventory-list {
   display: grid;
   gap: 8px;
+  margin-top: 12px;
 }
 
 .inventory-empty {
@@ -233,6 +258,47 @@ button {
   flex: 0 0 auto;
   color: var(--gold);
   font-variant-numeric: tabular-nums;
+}
+
+.equipped-list {
+  display: grid;
+  gap: 8px;
+}
+
+.equipped-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 9px 10px;
+  color: var(--muted);
+  background: rgba(12, 11, 14, .35);
+  border: 1px solid rgba(67, 59, 72, .75);
+  border-radius: 8px;
+}
+
+.equipped-row strong {
+  min-width: 0;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.mini-button {
+  flex: 0 0 auto;
+  min-height: 32px;
+  padding: 5px 10px;
+  color: var(--text);
+  background: #37313d;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.mini-button:active {
+  transform: translateY(1px);
 }
 
 .button-row {

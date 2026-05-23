@@ -1,4 +1,5 @@
 import { update } from "./state.js";
+import { getPlayerStats } from "./equipment.js";
 import { addLootToInventory, rollLootForEnemy } from "./loot.js";
 
 let enemyDefinitions = [];
@@ -44,7 +45,8 @@ export function attackEnemy() {
       return;
     }
 
-    const playerDamage = Math.max(1, 7 + player.level * 2);
+    const stats = getPlayerStats(player);
+    const playerDamage = Math.max(1, stats.atk + player.level * 2);
     enemy.hp = Math.max(0, enemy.hp - playerDamage);
     pushLog(battle, `${enemy.name}\u306B${playerDamage}\u30C0\u30E1\u30FC\u30B8\u3002`);
 
@@ -53,7 +55,7 @@ export function attackEnemy() {
       return;
     }
 
-    const enemyDamage = Math.max(1, enemy.attack);
+    const enemyDamage = Math.max(1, enemy.attack - stats.def);
     player.hp = Math.max(0, player.hp - enemyDamage);
     pushLog(battle, `${enemy.name}\u304B\u3089${enemyDamage}\u30C0\u30E1\u30FC\u30B8\u3002`);
 

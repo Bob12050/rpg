@@ -89,11 +89,25 @@ function normalizePlayer(player) {
 
   return {
     ...player,
+    baseAtk: player.baseAtk ?? 5,
+    baseDef: player.baseDef ?? 0,
+    equipment: {
+      weapon: player.equipment?.weapon ?? null,
+      armor: player.equipment?.armor ?? null,
+    },
     inventory: {
       materials: player.inventory?.materials ?? {},
-      equipment: player.inventory?.equipment ?? [],
+      equipment: normalizeEquipmentInventory(player.inventory?.equipment ?? []),
     },
   };
+}
+
+function normalizeEquipmentInventory(items) {
+  return items.map((item, index) => ({
+    ...item,
+    instanceId: item.instanceId ?? `${item.id ?? "equipment"}_legacy_${index}`,
+    enhanceLevel: item.enhanceLevel ?? 0,
+  }));
 }
 
 function notify() {

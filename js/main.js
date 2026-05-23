@@ -1,4 +1,5 @@
 import { getState, initGame, load, resetGame, save, subscribe, update } from "./state.js";
+import { equipItem, loadEquipmentDefinitions, unequipItem } from "./equipment.js";
 import { flash, render, setSaveIndicator } from "./render.js";
 import { attackEnemy, gainTestExp, loadEnemies, startNextBattle } from "./battle.js";
 import { loadLootTables } from "./loot.js";
@@ -64,10 +65,38 @@ function wireButtons() {
   on("btn-next-enemy", () => {
     startNextBattle();
   });
+
+  on("inventory-list", (event) => {
+    const button = event.target.closest("[data-action='equip']");
+    if (!button) return;
+
+    update((state) => {
+      const message = equipItem(state.player, button.dataset.instanceId);
+      state.uiMessage = message;
+      flash(message);
+    });
+  });
+
+  on("btn-unequip-weapon", () => {
+    update((state) => {
+      const message = unequipItem(state.player, "weapon");
+      state.uiMessage = message;
+      flash(message);
+    });
+  });
+
+  on("btn-unequip-armor", () => {
+    update((state) => {
+      const message = unequipItem(state.player, "armor");
+      state.uiMessage = message;
+      flash(message);
+    });
+  });
 }
 
 async function boot() {
   try {
+    await loadEquipmentDefinitions();
     await loadEnemies();
     await loadLootTables();
     await initGame();

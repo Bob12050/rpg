@@ -1,0 +1,16 @@
+{
+  "rusty_dagger": {
+    "id": "rusty_dagger",
+    "name": "\u7C97\u672B\u306A\u77ED\u5263",
+    "slot": "weapon",
+    "atk": 3,
+    "def": 0
+  },
+  "cloth_armor": {
+    "id": "cloth_armor",
+    "name": "\u5E03\u306E\u670D",
+    "slot": "armor",
+    "atk": 0,
+    "def": 2
+  }
+}

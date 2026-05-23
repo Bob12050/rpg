@@ -1,3 +1,5 @@
+import { createEquipmentItem } from "./equipment.js";
+
 let lootTables = {};
 
 export async function loadLootTables() {
@@ -32,11 +34,10 @@ export function addLootToInventory(player, drops) {
 
   for (const drop of drops) {
     if (drop.type === "equipment") {
-      player.inventory.equipment.push({
-        id: drop.id,
-        name: drop.name,
-        enhanceLevel: 0,
-      });
+      const equipment = createEquipmentItem(drop.id);
+      if (equipment) {
+        player.inventory.equipment.push(equipment);
+      }
       continue;
     }
 

@@ -6,9 +6,15 @@
   "maxHp": 30,
   "mp": 10,
   "maxMp": 10,
+  "baseAtk": 5,
+  "baseDef": 0,
   "exp": 0,
   "expToNext": 20,
   "gold": 0,
+  "equipment": {
+    "weapon": null,
+    "armor": null
+  },
   "inventory": {
     "materials": {},
     "equipment": []

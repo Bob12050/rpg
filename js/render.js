@@ -1,6 +1,9 @@
+import { getPlayerStats } from "./equipment.js";
+
 export function render(state) {
   const player = state.player;
   if (!player) return;
+  const stats = getPlayerStats(player);
 
   setText("p-name", player.name);
   setText("p-job", player.job);
@@ -9,13 +12,17 @@ export function render(state) {
   setText("mp-text", `${player.mp} / ${player.maxMp}`);
   setText("exp-text", `${player.exp} / ${player.expToNext}`);
   setText("p-gold", player.gold);
+  setText("p-atk", stats.atk);
+  setText("p-def", stats.def);
+  setText("equipped-weapon", formatEquipmentName(stats.weapon));
+  setText("equipped-armor", formatEquipmentName(stats.armor));
 
   setBar("hp-bar", player.hp, player.maxHp);
   setBar("mp-bar", player.mp, player.maxMp);
   setBar("exp-bar", player.exp, player.expToNext);
 
   renderBattle(state.battle);
-  renderInventory(player.inventory);
+  renderInventory(player);
 }
 
 export function flash(message) {
@@ -47,10 +54,11 @@ function renderBattle(battle) {
   logElement.innerHTML = lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("");
 }
 
-function renderInventory(inventory) {
+function renderInventory(player) {
   const element = document.getElementById("inventory-list");
   if (!element) return;
 
+  const inventory = player.inventory;
   const materials = Object.values(inventory?.materials ?? {});
   const equipment = inventory?.equipment ?? [];
 
@@ -68,12 +76,20 @@ function renderInventory(inventory) {
 
   const equipmentRows = equipment.map((item) => `
     <div class="inventory-item">
-      <span>${escapeHtml(item.name)}</span>
-      <strong>+${item.enhanceLevel ?? 0}</strong>
+      <span>${escapeHtml(formatEquipmentName(item))}</span>
+      <button class="mini-button" data-action="equip" data-instance-id="${escapeHtml(item.instanceId)}">
+        ${escapeHtml("\u88C5\u5099")}
+      </button>
     </div>
   `);
 
   element.innerHTML = [...materialRows, ...equipmentRows].join("");
+}
+
+function formatEquipmentName(item) {
+  if (!item) return "-";
+  const level = item.enhanceLevel ?? 0;
+  return level > 0 ? `${item.name} +${level}` : item.name;
 }
 
 function setText(id, value) {

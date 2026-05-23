@@ -7,6 +7,14 @@
       "chance": 1,
       "minQuantity": 1,
       "maxQuantity": 2
+    },
+    {
+      "itemId": "rusty_dagger",
+      "name": "\u7C97\u672B\u306A\u77ED\u5263",
+      "type": "equipment",
+      "chance": 1,
+      "minQuantity": 1,
+      "maxQuantity": 1
     }
   ],
   "twig_goblin": [

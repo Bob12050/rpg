@@ -1,4 +1,4 @@
-const CACHE_NAME = "solo-hack-rpg-v2";
+const CACHE_NAME = "solo-hack-rpg-v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,9 +8,11 @@ const ASSETS = [
   "./js/state.js",
   "./js/render.js",
   "./js/battle.js",
+  "./js/equipment.js",
   "./js/loot.js",
   "./data/player.json",
   "./data/enemies.json",
+  "./data/equipment.json",
   "./data/loot.json",
   "./assets/images/icon-192.png",
   "./assets/images/icon-512.png"
