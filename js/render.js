@@ -2,6 +2,7 @@ import { getEnhancementPreview } from "./craft.js";
 import { getPlayerStats } from "./equipment.js";
 import { getAllJobs, getCurrentJob } from "./job.js";
 import { getSkillsForCurrentJob } from "./skill.js";
+import { getAllStages } from "./stage.js";
 
 export function render(state) {
   const player = state.player;
@@ -29,6 +30,7 @@ export function render(state) {
   renderBattle(state.battle, player);
   renderInventory(player);
   renderJobList(player);
+  renderStageList(state);
 }
 
 export function flash(message) {
@@ -135,6 +137,33 @@ function renderJobList(player) {
         <button
           class="mini-button"
           data-job-id="${escapeHtml(job.id)}"
+          ${isCurrent ? "disabled" : ""}
+        >
+          ${escapeHtml(isCurrent ? "\u9078\u629E\u4E2D" : "\u9078\u629E")}
+        </button>
+      </div>
+    `;
+  });
+
+  element.innerHTML = rows.join("");
+}
+
+function renderStageList(state) {
+  const element = document.getElementById("stage-list");
+  if (!element) return;
+
+  const currentStageId = state.currentStageId;
+  const rows = getAllStages().map((stage) => {
+    const isCurrent = stage.id === currentStageId;
+    return `
+      <div class="stage-option ${isCurrent ? "current" : ""}">
+        <div class="stage-option-main">
+          <span>${escapeHtml(stage.name)}</span>
+          <small>Lv ${stage.recommendedLevel} / ${escapeHtml(stage.description)}</small>
+        </div>
+        <button
+          class="mini-button"
+          data-stage-id="${escapeHtml(stage.id)}"
           ${isCurrent ? "disabled" : ""}
         >
           ${escapeHtml(isCurrent ? "\u9078\u629E\u4E2D" : "\u9078\u629E")}

@@ -6,6 +6,7 @@ import { attackEnemy, gainTestExp, loadEnemies, startNextBattle, useSkill } from
 import { changeJob, loadJobDefinitions } from "./job.js";
 import { loadLootTables } from "./loot.js";
 import { loadSkillDefinitions } from "./skill.js";
+import { changeStage, loadStageDefinitions } from "./stage.js";
 
 subscribe((state) => {
   render(state);
@@ -111,6 +112,17 @@ function wireButtons() {
     });
   });
 
+  on("stage-list", (event) => {
+    const button = event.target.closest("[data-stage-id]");
+    if (!button || button.disabled) return;
+
+    update((state) => {
+      const message = changeStage(state, button.dataset.stageId);
+      state.uiMessage = message;
+      flash(message);
+    });
+  });
+
   on("btn-unequip-weapon", () => {
     update((state) => {
       const message = unequipItem(state.player, "weapon");
@@ -130,6 +142,7 @@ function wireButtons() {
 
 async function boot() {
   try {
+    await loadStageDefinitions();
     await loadJobDefinitions();
     await loadSkillDefinitions();
     await loadEquipmentDefinitions();

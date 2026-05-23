@@ -1,10 +1,12 @@
 import { getDefaultJobId, getJobDefinition } from "./job.js";
+import { getDefaultStageId } from "./stage.js";
 
 const SAVE_KEY = "solo_hack_rpg_save_v1";
 
 let gameState = {
   player: null,
   battle: null,
+  currentStageId: getDefaultStageId(),
 };
 
 const listeners = [];
@@ -29,7 +31,7 @@ export async function initGame() {
     gameState = normalizeState(saved);
   } else {
     const player = normalizePlayer(await loadInitialPlayer());
-    gameState = { player, battle: null };
+    gameState = { player, battle: null, currentStageId: getDefaultStageId() };
   }
 
   notify();
@@ -57,7 +59,7 @@ export function load() {
 export async function resetGame() {
   localStorage.removeItem(SAVE_KEY);
   const player = normalizePlayer(await loadInitialPlayer());
-  gameState = { player, battle: null };
+  gameState = { player, battle: null, currentStageId: getDefaultStageId() };
   notify();
 }
 
@@ -83,6 +85,7 @@ function normalizeState(state) {
   return {
     player: normalizePlayer(state.player),
     battle: state.battle ?? null,
+    currentStageId: state.currentStageId ?? getDefaultStageId(),
   };
 }
 

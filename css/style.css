@@ -228,12 +228,18 @@ button {
   min-height: 150px;
 }
 
-.job-list {
+.stage-card {
+  min-height: 150px;
+}
+
+.job-list,
+.stage-list {
   display: grid;
   gap: 8px;
 }
 
-.job-option {
+.job-option,
+.stage-option {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -246,22 +252,26 @@ button {
   border-radius: 8px;
 }
 
-.job-option.current {
+.job-option.current,
+.stage-option.current {
   border-color: rgba(215, 169, 77, .75);
   background: rgba(215, 169, 77, .1);
 }
 
-.job-option-main {
+.job-option-main,
+.stage-option-main {
   min-width: 0;
   display: grid;
   gap: 2px;
 }
 
-.job-option-main span {
+.job-option-main span,
+.stage-option-main span {
   font-weight: 700;
 }
 
-.job-option-main small {
+.job-option-main small,
+.stage-option-main small {
   color: var(--muted);
   font-size: .74rem;
 }
