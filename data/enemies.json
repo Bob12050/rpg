@@ -69,7 +69,8 @@
     "gold": 28,
     "isBoss": true,
     "nextPhaseId": "forest_guardian_awakened",
-    "bossPhase": 1
+    "bossPhase": 1,
+    "image": "assets/images/enemies/forest_guardian.png"
   },
   {
     "id": "crystal_golem",
@@ -81,7 +82,8 @@
     "gold": 44,
     "isBoss": true,
     "nextPhaseId": "crystal_golem_rampage",
-    "bossPhase": 1
+    "bossPhase": 1,
+    "image": "assets/images/enemies/crystal_golem.png"
   },
   {
     "id": "forest_guardian_awakened",
@@ -92,7 +94,8 @@
     "exp": 60,
     "gold": 48,
     "isBoss": true,
-    "bossPhase": 2
+    "bossPhase": 2,
+    "image": "assets/images/enemies/forest_guardian_awakened.png"
   },
   {
     "id": "crystal_golem_rampage",
@@ -103,6 +106,7 @@
     "exp": 90,
     "gold": 72,
     "isBoss": true,
-    "bossPhase": 2
+    "bossPhase": 2,
+    "image": "assets/images/enemies/crystal_golem_rampage.png"
   }
 ]
