@@ -24,5 +24,18 @@
     ],
     "bossId": "crystal_golem",
     "bossRequiredDefeats": 5
+  },
+  "volcano": {
+    "id": "volcano",
+    "name": "ステージ3：燃ゆる火山",
+    "description": "溶岩の流れる灼熱の山。炎の魔物が棲む。",
+    "recommendedLevel": 6,
+    "enemyIds": [
+      "cave_slime",
+      "crystal_bat",
+      "stone_goblin"
+    ],
+    "bossId": "crystal_golem",
+    "bossRequiredDefeats": 5
   }
 }
